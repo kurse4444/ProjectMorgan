@@ -168,9 +168,9 @@ func _physics_process(delta: float) -> void:
 				p = float(anim.frame) / float(frames - 1)
 			# Map progress → collider y depending on state
 			# Assume "open" goes 0→1 downward; "close" goes 1→0 upward
-			if name == "open":
+			if anim_name == "open":
 				_collider.position.y = _base_collider_y + open_travel * p
-			elif name == "close":
+			elif anim_name == "close":
 				_collider.position.y = _base_collider_y + open_travel * (1.0 - p)
 	else:
 		# Not in a transition: snap to target (idle states)

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://lx3esm4tkbdd"]
 
-[ext_resource type="Script" uid="uid://rstwajw6e62m" path="res://Scripts/movingplatformplus.gd" id="1_anqd2"]
-[ext_resource type="PackedScene" uid="uid://dg8phpqs3ucsu" path="res://Scenes/slowable.tscn" id="2_anqd2"]
-[ext_resource type="Texture2D" uid="uid://ghrgl11ur01p" path="res://Assets/Art/tile_0146.png" id="2_tdwu5"]
+[ext_resource type="Script" uid="uid://rstwajw6e62m" path="res://Platformer/Scripts/movingplatformplus.gd" id="1_anqd2"]
+[ext_resource type="PackedScene" uid="uid://dg8phpqs3ucsu" path="res://Platformer/Scenes/slowable.tscn" id="2_anqd2"]
+[ext_resource type="Texture2D" uid="uid://ghrgl11ur01p" path="res://Platformer/Assets/Art/tile_0146.png" id="2_tdwu5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_anqd2"]
 size = Vector2(0.79040635, 0.7871679)
@@ -19,15 +19,19 @@ position = Vector2(0.008498993, 0.30085897)
 scale = Vector2(0.044383645, 0.100286)
 texture = ExtResource("2_tdwu5")
 
-[node name="A" type="Marker2D" parent="."]
-position = Vector2(-1.70869, 0)
-
-[node name="B" type="Marker2D" parent="."]
-position = Vector2(2.07605, -0.0303943)
-
 [node name="PlatformCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0.0042495006, -0.09272507)
 scale = Vector2(1, 1.0000002)
 shape = SubResource("RectangleShape2D_anqd2")
 
 [node name="Slowable" parent="." instance=ExtResource("2_anqd2")]
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="A" type="Marker2D" parent="Markers"]
+position = Vector2(-1.70869, 0)
+scale = Vector2(1, 1.0000001)
+
+[node name="B" type="Marker2D" parent="Markers"]
+position = Vector2(2.07605, -0.030394305)
+scale = Vector2(1, 1.0000001)

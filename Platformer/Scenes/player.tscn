@@ -1,12 +1,12 @@
 [gd_scene load_steps=87 format=3 uid="uid://b4gvvv4xqv416"]
 
-[ext_resource type="Script" uid="uid://u7oyblj5a4f7" path="res://Scripts/player.gd" id="2_i3pqv"]
-[ext_resource type="PackedScene" uid="uid://bry5e0hqr70ns" path="res://Scenes/bomb.tscn" id="2_vgqql"]
-[ext_resource type="Texture2D" uid="uid://bdn8e3wmvoiy6" path="res://Assets/Art/Morgan-idle-reduced2.png" id="3_3smsa"]
-[ext_resource type="Texture2D" uid="uid://vianklvtbde3" path="res://Assets/Art/player.png" id="3_6t5aa"]
-[ext_resource type="Texture2D" uid="uid://ctqxe6drv8avu" path="res://Assets/Art/morgann_run-spritesheet 500x550.png" id="3_fkybt"]
-[ext_resource type="PackedScene" uid="uid://dg8phpqs3ucsu" path="res://Scenes/slowable.tscn" id="3_vgqql"]
-[ext_resource type="Texture2D" uid="uid://dtjxely7mtdyy" path="res://Assets/Art/morgann_jump-sprite sheet 500 x 550.png" id="5_x3wgy"]
+[ext_resource type="Script" uid="uid://u7oyblj5a4f7" path="res://Platformer/Scripts/player.gd" id="2_i3pqv"]
+[ext_resource type="PackedScene" uid="uid://bry5e0hqr70ns" path="res://Platformer/Scenes/bomb.tscn" id="2_vgqql"]
+[ext_resource type="Texture2D" uid="uid://bdn8e3wmvoiy6" path="res://Platformer/Assets/Art/Morgan-idle-reduced2.png" id="3_3smsa"]
+[ext_resource type="Texture2D" uid="uid://vianklvtbde3" path="res://Platformer/Assets/Art/player.png" id="3_6t5aa"]
+[ext_resource type="Texture2D" uid="uid://ctqxe6drv8avu" path="res://Platformer/Assets/Art/morgann_run-spritesheet 500x550.png" id="3_fkybt"]
+[ext_resource type="PackedScene" uid="uid://dg8phpqs3ucsu" path="res://Platformer/Scenes/slowable.tscn" id="3_vgqql"]
+[ext_resource type="Texture2D" uid="uid://dtjxely7mtdyy" path="res://Platformer/Assets/Art/morgann_jump-sprite sheet 500 x 550.png" id="5_x3wgy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7ldla"]
 radius = 6.0

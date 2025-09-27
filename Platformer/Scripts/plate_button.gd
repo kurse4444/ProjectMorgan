@@ -16,7 +16,7 @@ signal active_changed(is_active: bool) # true while something is on the plate
 
 # --- Nodes ---
 @onready var slow: Slowable = $Slowable
-@onready var top_col: CollisionShape2D = $TopCollider
+@onready var top_col: CollisionPolygon2D = $TopCollider
 @onready var hitbox: Area2D = $Hitbox
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 

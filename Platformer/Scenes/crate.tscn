@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://cd8rcf0se5h50"]
+
+[ext_resource type="Script" uid="uid://cshjsmw7jnpta" path="res://Platformer/Scripts/crate.gd" id="1_4yaow"]
+[ext_resource type="Texture2D" uid="uid://cg66xnm78fnj6" path="res://Platformer/Assets/Art/tilemap.png" id="1_xewbc"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xewbc"]
+friction = 5.0
+
+[node name="Crate" type="RigidBody2D" groups=["crate"]]
+collision_mask = 19
+physics_material_override = SubResource("PhysicsMaterial_xewbc")
+can_sleep = false
+lock_rotation = true
+script = ExtResource("1_4yaow")
+min_gap_px = 20.0
+margin_px = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_xewbc")
+region_enabled = true
+region_rect = Rect2(113.627014, 19, 18.54309, 18.21968)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-6, 9, 6, 9, 9, 6, 9, -6, 6, -9, -6, -9, -9, -6, -9, 6)
+
+[node name="RayLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-26, 0)
+
+[node name="RayRight" type="RayCast2D" parent="."]
+target_position = Vector2(26, 0)

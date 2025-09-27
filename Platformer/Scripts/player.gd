@@ -54,6 +54,10 @@ var _face := 1								# 1 right, -1 left
 @export var default_spawn_path: NodePath    # set to ../DefaultSpawn in the editor
 @onready var _default_spawn: Marker2D = get_node_or_null(default_spawn_path)
 
+# Crate
+@export var push_impulse: float = 120.0   # increase if crate is heavy
+@export var side_contact_threshold: float = 0.7
+
 func _ready() -> void:
 	add_to_group("player")
 	add_to_group("slowable")
@@ -149,9 +153,10 @@ func _physics_process(delta: float) -> void:
 			velocity.y = 0.0
 
 	# --- Horizontal (direct scaling by horizontal time scale) ---
-	var dir := Input.get_axis("ui_left", "ui_right")
+	var dir := Input.get_axis("run_left", "run_right")
 	if dir != 0:
 		_face = 1 if (dir > 0) else -1
+	var push_dir : int = sign(dir)
 	velocity.x = move_speed * dir * ts_h
 	
 	if _bomb_side_frames > 0:
@@ -167,6 +172,44 @@ func _physics_process(delta: float) -> void:
 
 	# --- Apply physics ---
 	move_and_slide()
+	
+	# --- Find the rigidbody you're standing on (if any)
+	var stood_on_rb: RigidBody2D = null
+	if is_on_floor():
+		var floor_cos := cos(floor_max_angle)     # CharacterBody2D property
+		for i in range(get_slide_collision_count()):
+			var c := get_slide_collision(i)
+			var n := c.get_normal()
+			# floor if angle between n and up_direction is small enough
+			if up_direction.dot(n) >= floor_cos:
+				stood_on_rb = c.get_collider() as RigidBody2D
+				if stood_on_rb:
+					break
+
+	for i in range(get_slide_collision_count()):
+		var c := get_slide_collision(i)
+		var rb := c.get_collider() as RigidBody2D
+		if rb == null:
+			continue
+
+		# ❌ Never push the rigidbody you're standing on
+		if rb == stood_on_rb:
+			continue
+
+		var n := c.get_normal()
+
+		# Only push on strong side contacts (avoid corner/top)
+		if push_dir != 0 \
+		and abs(n.x) >= 0.8 and abs(n.y) <= 0.2 \
+		and push_dir == -sign(n.x):
+
+			# If your crate implements the wall-gap guard, respect it
+			if rb.has_method("can_push_toward") and not rb.can_push_toward(push_dir):
+				continue
+
+			rb.sleeping = false
+			rb.apply_impulse(Vector2(push_impulse * push_dir, 0.0))
+
 
 	# --- Animations (match horizontal scale) ---
 	anim.speed_scale = ts_h
