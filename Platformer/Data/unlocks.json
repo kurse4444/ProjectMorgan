@@ -1,0 +1,15 @@
+{
+  "actions": {
+	"PF:HighJump": ["FoundBoots"],
+	"PF:Bubble": ["FoundBubble"],
+	"PF:Bomb": ["FoundBomb"]
+  },
+  "names": {
+	"PF:HighJump": "Enabled double jump",
+	"PF:Bubble": "Enabled time bubble",
+	"PF:Bomb": "Enabled bomb",
+	"FoundBoots": "Obtained jump boots in platformer",
+	"FoundBubble": "Obtained bubble ability in _",
+	"FoundBomb": "Obtained bomb ability in _",
+  }
+}

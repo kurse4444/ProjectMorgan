@@ -1,0 +1,112 @@
+[gd_scene load_steps=13 format=3 uid="uid://q6ot226pruqu"]
+
+[ext_resource type="Script" uid="uid://c030j00lscw51" path="res://Scripts/walking_enemy.gd" id="1_ynn1y"]
+[ext_resource type="Texture2D" uid="uid://b41bftniih4u8" path="res://Assets/Art/tilemap-characters_packed.png" id="2_2d141"]
+[ext_resource type="PackedScene" uid="uid://dg8phpqs3ucsu" path="res://Scenes/slowable.tscn" id="3_6i0yf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sx0b0"]
+size = Vector2(22, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iowd3"]
+atlas = ExtResource("2_2d141")
+region = Rect2(120, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynn1y"]
+atlas = ExtResource("2_2d141")
+region = Rect2(72, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olhwn"]
+atlas = ExtResource("2_2d141")
+region = Rect2(72, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6eerw"]
+atlas = ExtResource("2_2d141")
+region = Rect2(96, 48, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qwbek"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iowd3")
+}],
+"loop": false,
+"name": &"die",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynn1y")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olhwn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6eerw")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_peh4l"]
+size = Vector2(16, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fcyji"]
+size = Vector2(24, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ynn1y"]
+size = Vector2(142, 20)
+
+[node name="WalkingEnemy" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 13
+script = ExtResource("1_ynn1y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_sx0b0")
+
+[node name="Slowable" parent="." instance=ExtResource("3_6i0yf")]
+
+[node name="Rig" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Rig"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_qwbek")
+animation = &"walk"
+
+[node name="TopSensor" type="Area2D" parent="Rig"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rig/TopSensor"]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_peh4l")
+debug_color = Color(0.7737548, 0.26552376, 0.21026027, 0.41960785)
+
+[node name="Hurtbox" type="Area2D" parent="Rig"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rig/Hurtbox"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_fcyji")
+
+[node name="GroundCheck" type="RayCast2D" parent="Rig"]
+target_position = Vector2(-17, 13)
+
+[node name="WallCheck" type="RayCast2D" parent="Rig"]
+target_position = Vector2(-18, 0)
+
+[node name="DetectionZone" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
+shape = SubResource("RectangleShape2D_ynn1y")

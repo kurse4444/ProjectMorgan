@@ -1,0 +1,122 @@
+[gd_scene load_steps=12 format=3 uid="uid://16proxfvq756"]
+
+[ext_resource type="PackedScene" uid="uid://dg8phpqs3ucsu" path="res://Scenes/slowable.tscn" id="1_eafc2"]
+[ext_resource type="Script" uid="uid://dd4tuacik5nan" path="res://Scripts/flying_enemy.gd" id="1_gcrhg"]
+[ext_resource type="Texture2D" uid="uid://b41bftniih4u8" path="res://Assets/Art/tilemap-characters_packed.png" id="2_a0nct"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gcrhg"]
+radius = 155.46382
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvc0l"]
+atlas = ExtResource("2_a0nct")
+region = Rect2(192, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6h0x"]
+atlas = ExtResource("2_a0nct")
+region = Rect2(144, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bivt5"]
+atlas = ExtResource("2_a0nct")
+region = Rect2(168, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27kfy"]
+atlas = ExtResource("2_a0nct")
+region = Rect2(192, 48, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7tw12"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvc0l")
+}],
+"loop": false,
+"name": &"die",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6h0x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bivt5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27kfy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bivt5")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6h0x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bivt5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27kfy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bivt5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ky706"]
+size = Vector2(6, 1.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f1kk2"]
+radius = 6.0827627
+
+[node name="FlyingEnemy" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 29
+script = ExtResource("1_gcrhg")
+
+[node name="Slowable" parent="." instance=ExtResource("1_eafc2")]
+
+[node name="DetectionZone" type="Area2D" parent="."]
+visible = false
+collision_layer = 16
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
+shape = SubResource("CircleShape2D_gcrhg")
+
+[node name="Rig" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Rig"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_7tw12")
+animation = &"fly"
+frame_progress = 0.49395305
+
+[node name="Hurtbox" type="Area2D" parent="Rig"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rig/Hurtbox"]
+position = Vector2(0, -1)
+rotation = 1.5707964
+polygon = PackedVector2Array(-2.9999995, 9, -2, 8.742277e-08, -3.0000005, -9, 5, -6, 7, -3.059797e-07, 6, 5)
+
+[node name="TopSensor" type="Area2D" parent="Rig"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rig/TopSensor"]
+position = Vector2(0, -4.25)
+shape = SubResource("RectangleShape2D_ky706")
+debug_color = Color(0.8686308, 0.3224925, 0.38290322, 0.41960785)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 2)
+rotation = 1.5707964
+shape = SubResource("CircleShape2D_f1kk2")

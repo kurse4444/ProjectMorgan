@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dbalp7i4l1h16"
+path="res://.godot/imported/time bubble.wav-c65db9416b80f6f9be707570a952b6cb.sample"
+
+[deps]
+
+source_file="res://Platformer/Assets/Sound/time bubble.wav"
+dest_files=["res://.godot/imported/time bubble.wav-c65db9416b80f6f9be707570a952b6cb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

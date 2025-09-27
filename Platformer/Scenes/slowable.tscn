@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dg8phpqs3ucsu"]
+
+[ext_resource type="Script" uid="uid://cebv6ba1uc73r" path="res://Scripts/slowable.gd" id="1_we1j8"]
+
+[node name="Slowable" type="Node"]
+script = ExtResource("1_we1j8")

@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://cfd0c4x826jvo"]
+
+[ext_resource type="Script" uid="uid://ygdtsxo1uo20" path="res://Scripts/unlock_area_2d.gd" id="1_hjyhw"]
+[ext_resource type="Texture2D" uid="uid://cg66xnm78fnj6" path="res://Assets/Art/tilemap.png" id="1_s2ps4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48fiw"]
+atlas = ExtResource("1_s2ps4")
+region = Rect2(209, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drtbe"]
+atlas = ExtResource("1_s2ps4")
+region = Rect2(171, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjyhw"]
+atlas = ExtResource("1_s2ps4")
+region = Rect2(190, 0, 18, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_53bbi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48fiw")
+}],
+"loop": false,
+"name": &"activate",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drtbe")
+}],
+"loop": true,
+"name": &"activated",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjyhw")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hjyhw"]
+size = Vector2(19, 18)
+
+[node name="UnlockArea2D" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_hjyhw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_53bbi")
+animation = &"activate"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_hjyhw")

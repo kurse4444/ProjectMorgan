@@ -1,0 +1,81 @@
+[gd_scene load_steps=13 format=3 uid="uid://dhbn45433vjb3"]
+
+[ext_resource type="Script" uid="uid://b16mopc8hmdqy" path="res://Scripts/plate_button.gd" id="1_3t3qw"]
+[ext_resource type="PackedScene" uid="uid://dg8phpqs3ucsu" path="res://Scenes/slowable.tscn" id="1_swwhv"]
+[ext_resource type="Texture2D" uid="uid://beq0snqva0w4h" path="res://Assets/Art/button.png" id="2_haypx"]
+[ext_resource type="Texture2D" uid="uid://cwll35ui8iatk" path="res://Assets/Art/button_pressed.png" id="4_t1kea"]
+[ext_resource type="AudioStream" uid="uid://b456lx003u4q8" path="res://Assets/Sound/button_press.mp3" id="5_slaw3"]
+[ext_resource type="AudioStream" uid="uid://dvwrre8kqxy1s" path="res://Assets/Sound/button_release.mp3" id="6_32fcm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swwhv"]
+size = Vector2(16, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3t3qw"]
+atlas = ExtResource("2_haypx")
+region = Rect2(0, 0, 16, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slaw3"]
+atlas = ExtResource("4_t1kea")
+region = Rect2(0, 0, 16, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32fcm"]
+atlas = ExtResource("2_haypx")
+region = Rect2(0, 0, 16, 4)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t1kea"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3t3qw")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slaw3")
+}],
+"loop": true,
+"name": &"press",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32fcm")
+}],
+"loop": true,
+"name": &"release",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x41ax"]
+size = Vector2(12, 4)
+
+[node name="PlateButton" type="StaticBody2D"]
+collision_mask = 31
+script = ExtResource("1_3t3qw")
+
+[node name="Slowable" parent="." instance=ExtResource("1_swwhv")]
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 30
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_swwhv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_t1kea")
+animation = &"idle"
+
+[node name="TopCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_x41ax")
+
+[node name="Click" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_slaw3")
+
+[node name="Release" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_32fcm")
