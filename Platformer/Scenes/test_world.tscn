@@ -8,14 +8,13 @@
 [ext_resource type="Script" uid="uid://b1jsgb36bmuik" path="res://Platformer/Scripts/camera_2d.gd" id="7_0fcji"]
 [ext_resource type="PackedScene" uid="uid://16proxfvq756" path="res://Platformer/Scenes/flying_enemy.tscn" id="7_dqfvb"]
 [ext_resource type="Script" uid="uid://xr62jdynabm6" path="res://Platformer/Scripts/kill_zone.gd" id="7_p7j4p"]
-[ext_resource type="PackedScene" uid="uid://dhbn45433vjb3" path="res://Platformer/Scenes/plate_button.tscn" id="10_5qo1a"]
 [ext_resource type="PackedScene" uid="uid://cvvdlmlfdq6i7" path="res://Platformer/Scenes/checkpoint.tscn" id="10_yrarp"]
-[ext_resource type="PackedScene" uid="uid://c8iw52lqtqwj8" path="res://Platformer/Scenes/door_gate.tscn" id="11_5qo1a"]
 [ext_resource type="PackedScene" uid="uid://cfd0c4x826jvo" path="res://Platformer/Scenes/unlock_area_2d.tscn" id="12_bgy8c"]
 [ext_resource type="AudioStream" uid="uid://cfqw8admtodja" path="res://Platformer/Assets/Sound/8 bit main theme.wav" id="13_dftws"]
 [ext_resource type="PackedScene" uid="uid://cd8rcf0se5h50" path="res://Platformer/Scenes/crate.tscn" id="14_hl38m"]
+[ext_resource type="Texture2D" uid="uid://cr5ybpvaucep7" path="res://Platformer/Assets/Art/tile_0006.png" id="15_b4o1b"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iwv7r"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b4o1b"]
 texture = ExtResource("5_iwv7r")
 separation = Vector2i(1, 1)
 texture_region_size = Vector2i(18, 18)
@@ -120,9 +119,11 @@ texture_region_size = Vector2i(18, 18)
 5:1/0/terrains_peering_bit/top_side = 0
 5:1/0/terrains_peering_bit/top_right_corner = 0
 6:1/0 = 0
+6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, -9, 9, -9, 9, 9, -9, 9)
 7:1/0 = 0
 8:1/0 = 0
 9:1/0 = 0
+9:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, -9, 9, -9, 9, 9, -9, 9)
 10:1/0 = 0
 11:1/0 = 0
 12:1/0 = 0
@@ -324,6 +325,42 @@ texture_region_size = Vector2i(18, 18)
 15:7/0 = 0
 16:7/0 = 0
 17:7/0 = 0
+19:8/0 = 0
+19:7/0 = 0
+18:6/0 = 0
+18:5/0 = 0
+18:4/0 = 0
+18:3/0 = 0
+18:2/0 = 0
+18:1/0 = 0
+18:0/0 = 0
+19:0/0 = 0
+19:1/0 = 0
+19:2/0 = 0
+19:3/0 = 0
+19:4/0 = 0
+19:5/0 = 0
+19:6/0 = 0
+18:7/0 = 0
+18:8/0 = 0
+17:8/0 = 0
+16:8/0 = 0
+15:8/0 = 0
+14:8/0 = 0
+13:8/0 = 0
+12:8/0 = 0
+11:8/0 = 0
+10:8/0 = 0
+9:8/0 = 0
+8:8/0 = 0
+7:8/0 = 0
+6:8/0 = 0
+5:8/0 = 0
+4:8/0 = 0
+3:8/0 = 0
+2:8/0 = 0
+1:8/0 = 0
+0:8/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_kt01x"]
 tile_size = Vector2i(18, 18)
@@ -336,39 +373,26 @@ terrain_set_0/terrain_1/name = "Grass"
 terrain_set_0/terrain_1/color = Color(0.14287877, 0.42965728, 0.084749006, 1)
 custom_data_layer_0/name = "destructible"
 custom_data_layer_0/type = 1
-sources/0 = SubResource("TileSetAtlasSource_iwv7r")
+sources/0 = SubResource("TileSetAtlasSource_b4o1b")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_p7j4p"]
 distance = 13.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eha2d"]
+size = Vector2(36, 54)
 
 [node name="TestWorld" type="Node2D"]
 script = ExtResource("1_iwv7r")
 bubble_scene = ExtResource("2_kt01x")
 
 [node name="Player" parent="." instance=ExtResource("5_dqfvb")]
-position = Vector2(55, 182)
+position = Vector2(135, 118)
 move_speed = 150.0
 default_spawn_path = NodePath("../DefaultSpawn")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." groups=["DestructibleLayer"]]
-tile_map_data = PackedByteArray("AAAVAAsAAAAEAAUAAAAUAAsAAAAFAAEAAAATAAsAAAACAAEAAAASAAsAAAACAAEAAAARAAsAAAACAAEAAAAQAAsAAAACAAEAAAAPAAsAAAACAAEAAAAOAAsAAAAEAAEAAAANAAsAAAAFAAEAAAAMAAsAAAACAAEAAAALAAsAAAACAAEAAAAKAAsAAAACAAEAAAAJAAsAAAACAAEAAAAIAAsAAAACAAEAAAAHAAsAAAACAAEAAAAGAAsAAAACAAEAAAAFAAsAAAACAAEAAAAEAAsAAAACAAEAAAADAAsAAAACAAEAAAACAAsAAAACAAEAAAABAAsAAAAEAAEAAAAAAAsAAAAEAAUAAAD//wsAAAAEAAUAAAAVAAwAAAACAAcAAAAUAAwAAAACAAcAAAATAAwAAAACAAcAAAASAAwAAAACAAcAAAARAAwAAAACAAcAAAAQAAwAAAACAAcAAAAPAAwAAAACAAcAAAAOAAwAAAACAAcAAAANAAwAAAACAAcAAAAMAAwAAAACAAcAAAALAAwAAAACAAcAAAAKAAwAAAACAAcAAAAJAAwAAAACAAcAAAAIAAwAAAACAAcAAAAHAAwAAAACAAcAAAAGAAwAAAACAAcAAAAFAAwAAAACAAcAAAAEAAwAAAACAAcAAAADAAwAAAACAAcAAAACAAwAAAACAAcAAAABAAwAAAACAAcAAAAAAAwAAAACAAcAAAD//wwAAAACAAcAAAD//wAAAAADAAEAAAD//wEAAAADAAYAAAD//wIAAAADAAYAAAD//wMAAAADAAYAAAD//wQAAAADAAYAAAD//wUAAAADAAYAAAD//wYAAAADAAYAAAD//wcAAAADAAYAAAD//wgAAAADAAYAAAD//wkAAAAEAAEAAAD//woAAAAEAAUAAAANAAoAAAABAAYAAAANAAkAAAABAAYAAAANAAgAAAABAAYAAAAOAAoAAAADAAYAAAAOAAkAAAADAAYAAAAOAAgAAAADAAYAAAAXAAwAAAADAAcAAAAXAAsAAAADAAYAAAAWAAwAAAACAAcAAAAWAAsAAAACAAYAAAAWAAoAAAACAAYAAAAXAAoAAAADAAYAAAAXAAkAAAADAAYAAAAXAAgAAAADAAYAAAAXAAcAAAADAAYAAAAXAAYAAAADAAEAAAAWAAkAAAACAAYAAAAWAAgAAAAEAAUAAAAWAAcAAAACAAYAAAAWAAYAAAACAAEAAAA0AAwAAAADAAcAAAA0AAsAAAADAAEAAAAzAAwAAAACAAcAAAAzAAsAAAACAAEAAAAyAAwAAAACAAcAAAAyAAsAAAACAAEAAAAxAAwAAAACAAcAAAAxAAsAAAACAAEAAAAwAAwAAAACAAcAAAAwAAsAAAACAAEAAAAvAAwAAAACAAcAAAAvAAsAAAACAAEAAAAuAAwAAAACAAcAAAAuAAsAAAACAAEAAAAtAAwAAAACAAcAAAAtAAsAAAACAAEAAAAsAAwAAAACAAcAAAAsAAsAAAACAAEAAAArAAwAAAABAAcAAAArAAsAAAABAAEAAAAuAAoAAAAHAAIAAAAuAAkAAAAHAAIAAAAuAAgAAAAHAAIAAAAuAAcAAAAHAAIAAAAvAAcAAAAHAAIAAAAvAAgAAAAHAAIAAAAvAAkAAAAHAAIAAAAvAAoAAAAHAAIAAAA4AAcAAAADAAAAAAA3AAcAAAACAAAAAAA2AAcAAAACAAAAAAA1AAcAAAABAAAAAAA/AAcAAAABAAAAAABAAAcAAAACAAAAAABBAAcAAAADAAAAAAAVAAoAAAACAAYAAAAVAAkAAAACAAYAAAAVAAgAAAACAAYAAAAVAAcAAAACAAYAAAAVAAYAAAACAAEAAAAUAAoAAAABAAYAAAAUAAkAAAABAAYAAAAUAAgAAAABAAYAAAAUAAcAAAABAAYAAAAUAAYAAAABAAEAAAAOAAcAAAADAAEAAAANAAcAAAABAAEAAAD+/wwAAAABAAcAAAD+/wsAAAABAAYAAAD+/woAAAABAAYAAAD+/wkAAAABAAYAAAD+/wgAAAABAAYAAAD+/wcAAAABAAYAAAD+/wYAAAABAAYAAAD+/wUAAAABAAYAAAD+/wQAAAABAAYAAAD+/wMAAAABAAYAAAD+/wIAAAABAAYAAAD+/wAAAAABAAEAAAD+/wEAAAABAAYAAAALAAIAAAADAAEAAAAKAAIAAAACAAEAAAAJAAIAAAABAAEAAAAPAP//AAADAAcAAAAOAP//AAACAAcAAAANAP//AAABAAcAAAATAP3/AAADAAcAAAASAP3/AAACAAcAAAARAP3/AAABAAcAAAALAAQAAAADAAcAAAALAAMAAAADAAYAAAAKAAQAAAACAAcAAAAKAAMAAAACAAYAAAAJAAQAAAACAAcAAAAJAAMAAAAFAAEAAAAIAAQAAAACAAcAAAAIAAMAAAACAAEAAAAHAAQAAAACAAcAAAAHAAMAAAACAAEAAAAGAAQAAAACAAcAAAAGAAMAAAACAAEAAAAFAAQAAAABAAcAAAAFAAMAAAABAAEAAAAAAAoAAAAEAAUAAAAAAAkAAAACAAEAAAABAAkAAAADAAEAAAABAAoAAAADAAYAAAA=")
+tile_map_data = PackedByteArray("AAAVAAsAAAAEAAUAAAAUAAsAAAAFAAEAAAATAAsAAAACAAEAAAASAAsAAAACAAEAAAARAAsAAAACAAEAAAAQAAsAAAACAAEAAAAPAAsAAAACAAEAAAAOAAsAAAAEAAEAAAANAAsAAAAFAAEAAAAMAAsAAAACAAEAAAALAAsAAAACAAEAAAAKAAsAAAACAAEAAAAJAAsAAAACAAEAAAAIAAsAAAACAAEAAAAHAAsAAAACAAEAAAAGAAsAAAACAAEAAAAFAAsAAAACAAEAAAAEAAsAAAAEAAEAAAADAAsAAAAFAAEAAAACAAsAAAACAAEAAAABAAsAAAAEAAEAAAAAAAsAAAAEAAUAAAD//wsAAAAEAAUAAAAVAAwAAAACAAcAAAAUAAwAAAACAAcAAAATAAwAAAACAAcAAAASAAwAAAACAAcAAAARAAwAAAACAAcAAAAQAAwAAAACAAcAAAAPAAwAAAACAAcAAAAOAAwAAAACAAcAAAANAAwAAAACAAcAAAAMAAwAAAACAAcAAAALAAwAAAACAAcAAAAKAAwAAAACAAcAAAAJAAwAAAACAAcAAAAIAAwAAAACAAcAAAAHAAwAAAACAAcAAAAGAAwAAAACAAcAAAAFAAwAAAACAAcAAAAEAAwAAAACAAcAAAADAAwAAAACAAcAAAACAAwAAAACAAcAAAABAAwAAAACAAcAAAAAAAwAAAACAAcAAAD//wwAAAACAAcAAAD//wAAAAADAAEAAAD//wEAAAADAAYAAAD//wIAAAADAAYAAAD//wMAAAADAAYAAAD//wQAAAADAAYAAAD//wUAAAADAAYAAAD//wYAAAADAAYAAAD//wcAAAADAAYAAAD//wgAAAADAAYAAAD//wkAAAAEAAEAAAD//woAAAAEAAUAAAANAAoAAAABAAYAAAANAAkAAAABAAYAAAANAAgAAAABAAYAAAAOAAoAAAADAAYAAAAOAAkAAAADAAYAAAAOAAgAAAADAAYAAAAXAAwAAAADAAcAAAAXAAsAAAADAAYAAAAWAAwAAAACAAcAAAAWAAsAAAACAAYAAAAWAAoAAAACAAYAAAAXAAoAAAADAAYAAAAXAAkAAAADAAYAAAAXAAgAAAADAAYAAAAXAAcAAAADAAYAAAAXAAYAAAADAAEAAAAWAAkAAAACAAYAAAAWAAgAAAAEAAUAAAAWAAcAAAACAAYAAAAWAAYAAAACAAEAAAA0AAwAAAADAAcAAAA0AAsAAAADAAEAAAAzAAwAAAACAAcAAAAzAAsAAAACAAEAAAAyAAwAAAACAAcAAAAyAAsAAAACAAEAAAAxAAwAAAACAAcAAAAxAAsAAAACAAEAAAAwAAwAAAACAAcAAAAwAAsAAAACAAEAAAAvAAwAAAACAAcAAAAvAAsAAAACAAEAAAAuAAwAAAACAAcAAAAuAAsAAAACAAEAAAAtAAwAAAACAAcAAAAtAAsAAAACAAEAAAAsAAwAAAACAAcAAAAsAAsAAAACAAEAAAArAAwAAAABAAcAAAArAAsAAAABAAEAAAAuAAoAAAAHAAIAAAAuAAkAAAAHAAIAAAAuAAgAAAAHAAIAAAAuAAcAAAAHAAIAAAAvAAcAAAAHAAIAAAAvAAgAAAAHAAIAAAAvAAkAAAAHAAIAAAAvAAoAAAAHAAIAAAA4AAcAAAADAAAAAAA3AAcAAAACAAAAAAA2AAcAAAACAAAAAAA1AAcAAAABAAAAAAA/AAcAAAABAAAAAABAAAcAAAACAAAAAABBAAcAAAADAAAAAAAVAAoAAAACAAYAAAAVAAkAAAACAAYAAAAVAAgAAAACAAYAAAAVAAcAAAACAAYAAAAVAAYAAAACAAEAAAAUAAoAAAABAAYAAAAUAAkAAAABAAYAAAAUAAgAAAABAAYAAAAUAAcAAAABAAYAAAAUAAYAAAABAAEAAAAOAAcAAAADAAEAAAANAAcAAAABAAEAAAD+/wwAAAABAAcAAAD+/wsAAAABAAYAAAD+/woAAAABAAYAAAD+/wkAAAABAAYAAAD+/wgAAAABAAYAAAD+/wcAAAABAAYAAAD+/wYAAAABAAYAAAD+/wUAAAABAAYAAAD+/wQAAAABAAYAAAD+/wMAAAABAAYAAAD+/wIAAAABAAYAAAD+/wAAAAABAAEAAAD+/wEAAAABAAYAAAALAAIAAAADAAEAAAAKAAIAAAACAAEAAAAJAAIAAAABAAEAAAAPAP//AAADAAcAAAAOAP//AAACAAcAAAANAP//AAABAAcAAAATAP3/AAADAAcAAAASAP3/AAACAAcAAAARAP3/AAABAAcAAAALAAQAAAADAAcAAAALAAMAAAADAAYAAAAKAAQAAAACAAcAAAAKAAMAAAACAAYAAAAJAAQAAAACAAcAAAAJAAMAAAAFAAEAAAAIAAQAAAACAAcAAAAIAAMAAAACAAEAAAAHAAQAAAACAAcAAAAHAAMAAAACAAEAAAAGAAQAAAACAAcAAAAGAAMAAAACAAEAAAAFAAQAAAABAAcAAAAFAAMAAAABAAEAAAAAAAoAAAAEAAUAAAAAAAkAAAACAAEAAAABAAkAAAADAAEAAAABAAoAAAADAAYAAAACAAoAAAAHAAIAAAADAAoAAAAHAAIAAAA=")
 tile_set = SubResource("TileSet_kt01x")
-
-[node name="Checkpoints" type="Node2D" parent="."]
-position = Vector2(-4, -88)
-
-[node name="DefaultSpawn" type="Marker2D" parent="."]
-position = Vector2(21, 181)
-
-[node name="KillZones" type="Node2D" parent="."]
-
-[node name="KillZone" type="Area2D" parent="KillZones"]
-collision_mask = 18
-script = ExtResource("7_p7j4p")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZones/KillZone"]
-position = Vector2(582, 292)
-shape = SubResource("WorldBoundaryShape2D_p7j4p")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(160, 90)
@@ -380,10 +404,32 @@ player_path = NodePath("../Player")
 lookahead_distance = 100.0
 vertical_deadzone = 20.0
 auto_bounds_from_tilemap = false
-level_bounds = Rect2(0, 0, 10000, 230)
+use_region_bounds = true
+region_bounds = Array[Rect2]([Rect2(-3, 0, 380, 220), Rect2(370, 0, 485, 220)])
+region_stick_margin = 0.0
+region_switch_bias = 0.0
+region_transition_speed = 8.0
+debug_draw = true
+
+[node name="Checkpoints" type="Node2D" parent="."]
+position = Vector2(-4, -88)
+
+[node name="DefaultSpawn" type="Marker2D" parent="."]
+position = Vector2(74, 130)
+
+[node name="KillZones" type="Node2D" parent="."]
+
+[node name="KillZone" type="Area2D" parent="KillZones"]
+collision_mask = 18
+script = ExtResource("7_p7j4p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZones/KillZone"]
+position = Vector2(582, 292)
+shape = SubResource("WorldBoundaryShape2D_p7j4p")
 
 [node name="FlyingEnemy" parent="." instance=ExtResource("7_dqfvb")]
-position = Vector2(400, 78)
+position = Vector2(315, 118)
+behavior = 0
 
 [node name="MovingPlatform" parent="." instance=ExtResource("4_kt01x")]
 position = Vector2(491, 104.99999)
@@ -412,18 +458,6 @@ checkpoint_id = &"bef_platform"
 position = Vector2(897, 179)
 checkpoint_id = &"bef_bomb"
 
-[node name="PlateButton" parent="." instance=ExtResource("10_5qo1a")]
-position = Vector2(101, 197)
-
-[node name="DoorGate" parent="." instance=ExtResource("11_5qo1a")]
-position = Vector2(212, 147.00002)
-scale = Vector2(2.2324739, 2.2324739)
-inputs = Array[NodePath]([NodePath("../PlateButton")])
-k_required = 1
-start_idle_closed = true
-open_speed = 35.0
-close_speed = 30.0
-
 [node name="UnlockArea2D" parent="." instance=ExtResource("12_bgy8c")]
 position = Vector2(140, 189)
 milestone_on_enter = "FoundBomb"
@@ -434,10 +468,39 @@ milestone_on_enter = "FoundBubble"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("13_dftws")
-autoplay = true
 
 [node name="Crate" parent="." instance=ExtResource("14_hl38m")]
-position = Vector2(78, 186)
+position = Vector2(18, 155)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(54, 152)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_eha2d")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(-9, 18)
+texture = ExtResource("15_b4o1b")
+
+[node name="Sprite2D2" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(9, 18)
+texture = ExtResource("15_b4o1b")
+
+[node name="Sprite2D3" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(-9, 0)
+texture = ExtResource("15_b4o1b")
+
+[node name="Sprite2D4" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(9, 0)
+texture = ExtResource("15_b4o1b")
+
+[node name="Sprite2D5" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(-9, -18)
+texture = ExtResource("15_b4o1b")
+
+[node name="Sprite2D6" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(9, -18)
+texture = ExtResource("15_b4o1b")
 
 [editable path="MovingPlatform"]
 [editable path="MovingPlatform2"]

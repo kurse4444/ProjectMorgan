@@ -597,6 +597,7 @@ script = ExtResource("2_i3pqv")
 max_fall_speed = 700.0
 coyote_time = 0.1
 bomb_scene = ExtResource("2_vgqql")
+push_impulse = 60.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 3)

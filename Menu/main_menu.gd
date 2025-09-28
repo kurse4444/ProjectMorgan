@@ -2,7 +2,7 @@ extends Control
 
 # Preload your level scenes
 #@onready var idle_level = preload("res://Test3D.tscn")
-@onready var pf_level = preload("res://Platformer/Scenes/test_world.tscn")
+@onready var pf_level = preload("res://Platformer/Scenes/platformer_level.tscn")
 
 func _ready():
 	pass

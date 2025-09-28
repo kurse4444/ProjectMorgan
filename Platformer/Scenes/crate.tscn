@@ -25,7 +25,7 @@ region_rect = Rect2(113.627014, 19, 18.54309, 18.21968)
 polygon = PackedVector2Array(-6, 9, 6, 9, 9, 6, 9, -6, 6, -9, -6, -9, -9, -6, -9, 6)
 
 [node name="RayLeft" type="RayCast2D" parent="."]
-target_position = Vector2(-26, 0)
+target_position = Vector2(-27, 0)
 
 [node name="RayRight" type="RayCast2D" parent="."]
-target_position = Vector2(26, 0)
+target_position = Vector2(27, 0)

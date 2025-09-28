@@ -23,6 +23,7 @@ texture = ExtResource("2_tdwu5")
 position = Vector2(0.0042495006, -0.09272507)
 scale = Vector2(1, 1.0000002)
 shape = SubResource("RectangleShape2D_anqd2")
+one_way_collision = true
 
 [node name="Slowable" parent="." instance=ExtResource("2_anqd2")]
 

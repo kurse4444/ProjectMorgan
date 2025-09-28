@@ -168,8 +168,7 @@ func _convert_normal_explosion_to_stomp(p: CharacterBody2D) -> void:
 func explode() -> void:
 	if _started: return
 	_started = true
-	# Play sound
-	_play_explode_sfx()
+
 	# Pick clip and play
 	if _mode == ExplodeMode.STOMP:
 		fuse_anim.play(ANIM_EXPLODE_STOMP)
@@ -205,7 +204,8 @@ func _on_explode_anim_done() -> void:
 
 
 func _do_explosion_effects() -> void:
-
+	# Play sound
+	_play_explode_sfx()
 	
 	# Disable top sensor after exploding (avoid re-triggers)
 	if is_instance_valid(top_sensor):
