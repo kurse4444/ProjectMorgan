@@ -53,6 +53,7 @@ var _face := 1								# 1 right, -1 left
 # Checkpoints and Spawn
 @export var default_spawn_path: NodePath    # set to ../DefaultSpawn in the editor
 @onready var _default_spawn: Marker2D = get_node_or_null(default_spawn_path)
+signal died
 
 # Crate
 @export var push_impulse: float = 120.0   # increase if crate is heavy
@@ -323,6 +324,7 @@ func _on_bomb_gone(bomb: Node) -> void:
 
 func die() -> void:
 	# play death FX, freeze input, etc., then:
+	emit_signal("died")
 	respawn()
 
 func respawn() -> void:

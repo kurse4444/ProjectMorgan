@@ -35,6 +35,12 @@ extends Camera2D
 @export var region_transition_enabled := true
 @export var region_transition_speed := 6.0     # 1/s: higher = faster pan
 
+@export_group("Reset/Snap Control")
+@export var snap_on_level_load := true         # hard snap on first physics frame
+@export var snap_if_far := true                # hard snap if camera is far from player
+@export var snap_far_distance := 800.0         # px distance that counts as "far"
+@export var transition_freeze_after_snap := 0.15 # s to disable tweening after snap
+
 @export_group("Debug & Pixel Art")
 @export var debug_draw := false
 @export var pixel_snap := true
@@ -61,6 +67,10 @@ var _has_bounds_anim: bool = false
 
 var _effective_vertical_deadzone: float = 80.0    # for debug overlay
 
+# Snap state
+var _pending_initial_snap: bool = true
+var _transition_freeze: float = 0.0
+
 # --------- Smoothing ----------
 func soft_follow(current: float, target: float, speed: float, delta: float) -> float:
 	if speed <= 0.0:
@@ -83,7 +93,6 @@ func _ready() -> void:
 
 	position_smoothing_enabled = false
 	_refresh_bounds()
-	# Seed animated bounds with initial target so there is no first-frame snap
 	var t0: Rect2 = _target_bounds()
 	_bounds_anim = t0
 	_has_bounds_anim = true
@@ -133,6 +142,11 @@ func _physics_process(delta: float) -> void:
 	if not player:
 		return
 
+	# One-time hard snap after load (run after player has likely positioned itself)
+	if snap_on_level_load and _pending_initial_snap:
+		_hard_snap_to_player()
+		_pending_initial_snap = false
+
 	# Determine active region (if using region mode)
 	if use_region_bounds and region_bounds.size() > 0:
 		_pick_active_region(player.global_position)
@@ -142,6 +156,12 @@ func _physics_process(delta: float) -> void:
 
 	var ppos: Vector2 = player.global_position
 	var speed_x: float = absf(player.velocity.x)
+
+	# Optional: if we ever get very far from the player (teleport/respawn), hard snap
+	if snap_if_far:
+		var dist: float = (global_position - ppos).length()
+		if dist > snap_far_distance:
+			_hard_snap_to_player()
 
 	# 1) Smooth look-ahead flip toward facing
 	var face: int = _last_face
@@ -270,6 +290,13 @@ func _target_bounds() -> Rect2:
 	return _bounds
 
 func _update_animated_bounds(delta: float) -> void:
+	# Freeze tweening briefly after a snap to avoid panning from wrong rect
+	if _transition_freeze > 0.0:
+		_transition_freeze -= delta
+		_bounds_anim = _target_bounds()
+		_has_bounds_anim = true
+		return
+
 	if not region_transition_enabled:
 		_bounds_anim = _target_bounds()
 		_has_bounds_anim = true
@@ -340,6 +367,34 @@ func _vertical_headroom() -> float:
 		h = 0.0
 	return h
 
+# --------- Snap helpers ----------
+func _hard_snap_to_player() -> void:
+	if not player:
+		return
+
+	# Refresh facing for look-ahead
+	if player.has_method("facing_dir"):
+		_last_face = int(player.call("facing_dir"))
+	else:
+		if player.velocity.x >= 0.0:
+			_last_face = 1
+		else:
+			_last_face = -1
+
+	_aim_offset_x = lookahead_distance * float(_last_face)
+
+	# Place camera directly on player (no smoothing), then seed bounds/tween freeze
+	global_position = player.global_position + Vector2(_aim_offset_x, 0.0)
+	_seed_bounds_after_snap()
+
+	if pixel_snap:
+		global_position = global_position.round()
+
+func _seed_bounds_after_snap() -> void:
+	_bounds_anim = _target_bounds()
+	_has_bounds_anim = true
+	_transition_freeze = maxf(_transition_freeze, transition_freeze_after_snap)
+
 # --------- Debug draw ----------
 func _draw() -> void:
 	if not debug_draw:
@@ -359,16 +414,14 @@ func _draw() -> void:
 
 	# Regions and bounds overlays
 	if use_region_bounds and region_bounds.size() > 0:
-		# All regions (thin outline)
 		for r in region_bounds:
 			var tl_local_all: Vector2 = r.position - global_position
 			draw_rect(Rect2(tl_local_all, r.size), Color(0.4, 0.8, 1.0, 0.15), false, 1.0)
-		# Active region (yellow)
 		if _has_active_region:
 			var tl_local_act: Vector2 = _active_region.position - global_position
 			draw_rect(Rect2(tl_local_act, _active_region.size), Color(1.0, 0.95, 0.2, 0.9), false, 2.0)
 
-	# Animated clamp rect (blue) – this is what actually limits the camera right now
+	# Animated clamp rect (blue)
 	if _has_bounds_anim:
 		var bcur: Rect2 = _current_bounds()
 		var tl_local_b: Vector2 = bcur.position - global_position

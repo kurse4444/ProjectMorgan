@@ -26,6 +26,8 @@ enum TravelMode { BY_SPEED, BY_DURATION }
 # --- Endpoint waits ---
 @export_range(0.0, 10.0, 0.01) var wait_time: float = 0.4
 @export var waits_use_slow_time: bool = true
+@export var wait_at_all_points: bool = true
+
 
 # --- State ---
 var _dir: int = 1            # +1 forward through the list, -1 backward
@@ -134,13 +136,17 @@ func _physics_process(delta: float) -> void:
 func _on_segment_finished() -> void:
 	_t = 0.0
 
-	# Endpoint wait only at the extremes
-	var at_end_forward := (_i_to == _points.size() - 1) and (_dir == 1)
-	var at_end_backward := (_i_to == 0) and (_dir == -1)
-	if (at_end_forward or at_end_backward) and wait_time > 0.0:
-		_wait_left = wait_time
+	# Wait here?
+	if wait_time > 0.0:
+		if wait_at_all_points:
+			_wait_left = wait_time
+		else:
+			var at_end_forward := (_i_to == _points.size() - 1) and (_dir == 1)
+			var at_end_backward := (_i_to == 0) and (_dir == -1)
+			if at_end_forward or at_end_backward:
+				_wait_left = wait_time
 
-	# Advance to next segment
+	# Advance to the next segment
 	_i_from = _i_to
 	var next_to: int = _i_to + _dir
 
@@ -149,13 +155,14 @@ func _on_segment_finished() -> void:
 			_dir *= -1
 			next_to = _i_to + _dir
 		else:
-			# LOOP_PATH: snap to start and continue forward
+			# LOOP_PATH: wrap to start
 			_i_from = 0
 			_i_to = 1
 			global_position = _points[0]
 			return
 
 	_i_to = next_to
+
 
 # --- Debug gizmo in editor ---
 func _draw() -> void:

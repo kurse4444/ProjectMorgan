@@ -1,8 +1,7 @@
-[gd_scene load_steps=54 format=3 uid="uid://c8iw52lqtqwj8"]
+[gd_scene load_steps=53 format=3 uid="uid://c8iw52lqtqwj8"]
 
 [ext_resource type="Script" uid="uid://cebv6ba1uc73r" path="res://Platformer/Scripts/slowable.gd" id="1_ijwww"]
 [ext_resource type="Script" uid="uid://mh1tjkrp1onp" path="res://Platformer/Scripts/door_gate.gd" id="1_ydi5v"]
-[ext_resource type="Texture2D" uid="uid://cjc85fc3xggdb" path="res://Platformer/Assets/Art/strange_door_opening_anim_strip_14.png" id="3_okr7g"]
 [ext_resource type="Texture2D" uid="uid://dd0mpu3pnbwss" path="res://Platformer/Assets/Art/flower fall.png" id="3_x24kq"]
 [ext_resource type="Texture2D" uid="uid://b48swxbwuwqot" path="res://Platformer/Assets/Art/flower.png" id="6_xmufi"]
 
@@ -57,9 +56,9 @@ region = Rect2(300, 0, 300, 500)
 atlas = ExtResource("3_x24kq")
 region = Rect2(0, 0, 300, 500)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rpt62"]
-atlas = ExtResource("3_okr7g")
-region = Rect2(208, 0, 16, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ic5ap"]
+atlas = ExtResource("3_x24kq")
+region = Rect2(3300, 0, 300, 500)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mhlou"]
 atlas = ExtResource("6_xmufi")
@@ -141,9 +140,9 @@ region = Rect2(5400, 0, 300, 500)
 atlas = ExtResource("6_xmufi")
 region = Rect2(5700, 0, 300, 500)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lbpu4"]
-atlas = ExtResource("3_okr7g")
-region = Rect2(208, 0, 16, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_sivki"]
+atlas = ExtResource("3_x24kq")
+region = Rect2(3300, 0, 300, 500)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7etxo"]
 atlas = ExtResource("3_x24kq")
@@ -238,7 +237,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rpt62")
+"texture": SubResource("AtlasTexture_ic5ap")
 }],
 "loop": true,
 "name": &"idle",
@@ -311,7 +310,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lbpu4")
+"texture": SubResource("AtlasTexture_sivki")
 }],
 "loop": false,
 "name": &"idle_open",
@@ -379,6 +378,6 @@ texture_filter = 1
 position = Vector2(1, 1.0000005)
 scale = Vector2(0.09166667, 0.091666654)
 sprite_frames = SubResource("SpriteFrames_cgkjg")
-animation = &"open"
+animation = &"idle_open"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

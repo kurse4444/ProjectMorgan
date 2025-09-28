@@ -46,6 +46,13 @@ enum EnemyMode { INHERIT = -1, IDLE = 0, PATROL = 1, SEEK = 2, PATROL_SEEK = 3 }
 @export var activation_radius := 450.0
 @export var require_on_screen := false       # needs a VisibleOnScreenNotifier2D child
 
+# --- Optional: pass 2-marker patrol waypoints to enemies on spawn ---
+@export var set_waypoints_on_spawn := false
+@export var waypoint_a: NodePath
+@export var waypoint_b: NodePath
+@export var arrive_threshold_override := 0.0   # 0 = leave enemy's default
+@export var pause_at_marker_override := -1.0   # <0 = leave enemy's default
+
 # ---------------- Debug & editor viz ----------------
 @export var debug_draw := true
 @export var debug_color: Color = Color(0.2, 1.0, 0.4, 0.6)
@@ -61,6 +68,11 @@ var _refill_timer: Timer
 var _positions: Array[Node2D] = []
 var _spawn_parent: Node
 var _notifier: VisibleOnScreenNotifier2D
+
+var _pending_wave := false
+var _pending_wave_wait := 0.0
+var _pending_refill := false
+var _pending_refill_wait := 0.0
 
 func _ready() -> void:
 	_positions = _collect_positions()
@@ -88,6 +100,35 @@ func _ready() -> void:
 	_refill_timer.one_shot = true
 	add_child(_refill_timer)
 	_refill_timer.timeout.connect(_on_refill_timeout)
+	
+	# --- flush any pending schedules now that timers exist and we're in-tree ---
+	if _pending_wave and _spawn_timer:
+		var wv := _pending_wave_wait
+		_pending_wave = false
+		_pending_wave_wait = 0.0
+		call_deferred("_deferred_start_spawn", wv)
+
+	if _pending_refill and _refill_timer:
+		var rv := _pending_refill_wait
+		_pending_refill = false
+		_pending_refill_wait = 0.0
+		call_deferred("_deferred_start_refill", rv)
+
+
+func _deferred_start_spawn(wait: float) -> void:
+	if not is_inside_tree() or _spawn_timer == null:
+		return
+	_spawn_timer.stop()
+	_spawn_timer.wait_time = max(wait, MIN_WAIT)
+	_spawn_timer.start()
+
+func _deferred_start_refill(wait: float) -> void:
+	if not is_inside_tree() or _refill_timer == null:
+		return
+	_refill_timer.stop()
+	_refill_timer.wait_time = max(wait, MIN_WAIT)
+	_refill_timer.start()
+
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint() and debug_draw:
@@ -127,13 +168,20 @@ func _on_spawn_timer_timeout() -> void:
 # ---------------- Refill timer (coalesced) ----------------
 func _queue_refill_after(wait: float) -> void:
 	var w : float = max(MIN_WAIT, wait)
+	
+	# If we're not in the tree (e.g., during level reset), pend this request
+	if not is_inside_tree():
+		_pending_refill = true
+		_pending_refill_wait = w
+		return
+		
 	_refill_timer.stop()          # coalesce multiple deaths into one refill tick
 	_refill_timer.wait_time = w
 	_refill_timer.start()
 
 func _on_refill_timeout() -> void:
 	_compact_active_list()
-	_incremental_refill()
+	await _incremental_refill()
 
 # Spawn at most per_wave_count now; if still missing, schedule another tick.
 func _incremental_refill() -> void:
@@ -214,6 +262,13 @@ func _schedule_next_wave(base: float) -> void:
 	if wait <= 0.0:
 		call_deferred("_run_wave_now")
 		return
+	
+	# If we're not in the tree yet, remember it and do it later
+	if not is_inside_tree():
+		_pending_wave = true
+		_pending_wave_wait = max(wait, MIN_WAIT)
+		return
+	
 	_spawn_timer.stop()
 	_spawn_timer.wait_time = max(wait, MIN_WAIT)
 	_spawn_timer.start()
@@ -223,7 +278,7 @@ func _run_wave_now() -> void:
 	_compact_active_list()
 	var need := _remaining_to_target()
 	if need > 0:
-		_try_spawn(min(per_wave_count, need), true)
+		await _try_spawn(min(per_wave_count, need), true)
 	if spawn_interval > 0.0:
 		_schedule_next_wave(spawn_interval)
 
@@ -278,6 +333,7 @@ func _spawn_one(spawned_index: int) -> Node:
 		return null
 		
 	_apply_initial_mode(enemy)
+	_apply_waypoints(enemy)
 		
 	var pos := _pick_spawn_position(spawned_index)
 	if enemy is Node2D:
@@ -319,6 +375,34 @@ func _apply_initial_mode(enemy: Object) -> void:
 	if _has_property(enemy, "behavior"):
 		enemy.set("behavior", mode)
 
+func _apply_waypoints(enemy: Object) -> void:
+	if not set_waypoints_on_spawn:
+		return
+
+	var a_node := get_node_or_null(waypoint_a)
+	var b_node := get_node_or_null(waypoint_b)
+	if a_node == null or b_node == null:
+		return
+
+	var a_path: NodePath = a_node.get_path()
+	var b_path: NodePath = b_node.get_path()
+
+	# Always assign spawner’s waypoints if available
+	if _has_property(enemy, "waypoint_a_path"):
+		enemy.set("waypoint_a_path", a_path)
+	if _has_property(enemy, "waypoint_b_path"):
+		enemy.set("waypoint_b_path", b_path)
+
+	# Also make sure enemy actually uses them if it has that toggle
+	if _has_property(enemy, "use_waypoints_if_set"):
+		enemy.set("use_waypoints_if_set", true)
+
+	# Optional overrides
+	if arrive_threshold_override > 0.0 and _has_property(enemy, "arrive_threshold"):
+		enemy.set("arrive_threshold", arrive_threshold_override)
+
+	if pause_at_marker_override >= 0.0 and _has_property(enemy, "pause_at_marker"):
+		enemy.set("pause_at_marker", pause_at_marker_override)
 
 # ---------------- Callbacks ----------------
 func _on_enemy_gone(enemy: Node) -> void:

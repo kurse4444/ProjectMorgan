@@ -1,11 +1,11 @@
 [gd_scene load_steps=13 format=3 uid="uid://q6ot226pruqu"]
 
-[ext_resource type="Script" uid="uid://c030j00lscw51" path="res://Scripts/walking_enemy.gd" id="1_ynn1y"]
-[ext_resource type="Texture2D" uid="uid://b41bftniih4u8" path="res://Assets/Art/tilemap-characters_packed.png" id="2_2d141"]
-[ext_resource type="PackedScene" uid="uid://dg8phpqs3ucsu" path="res://Scenes/slowable.tscn" id="3_6i0yf"]
+[ext_resource type="Script" uid="uid://c030j00lscw51" path="res://Platformer/Scripts/walking_enemy.gd" id="1_ynn1y"]
+[ext_resource type="Texture2D" uid="uid://b41bftniih4u8" path="res://Platformer/Assets/Art/tilemap-characters_packed.png" id="2_2d141"]
+[ext_resource type="PackedScene" uid="uid://dg8phpqs3ucsu" path="res://Platformer/Scenes/slowable.tscn" id="3_6i0yf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sx0b0"]
-size = Vector2(22, 19)
+size = Vector2(20, 19)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iowd3"]
 atlas = ExtResource("2_2d141")
@@ -57,7 +57,7 @@ animations = [{
 size = Vector2(16, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fcyji"]
-size = Vector2(24, 19)
+size = Vector2(25, 19)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ynn1y"]
 size = Vector2(142, 20)
@@ -66,6 +66,8 @@ size = Vector2(142, 20)
 collision_layer = 16
 collision_mask = 13
 script = ExtResource("1_ynn1y")
+speed = 50.0
+use_waypoints_if_set = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.5)
@@ -94,7 +96,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rig/Hurtbox"]
-position = Vector2(0, 2.5)
+position = Vector2(0.5, 2.5)
 shape = SubResource("RectangleShape2D_fcyji")
 
 [node name="GroundCheck" type="RayCast2D" parent="Rig"]

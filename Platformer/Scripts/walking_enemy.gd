@@ -1,4 +1,4 @@
-# WalkingEnemy.gd — adds PATROL_SEEK (patrol ↔ seek with linger)
+# WalkingEnemy.gd — adds PATROL_SEEK + optional 2-marker patrol
 extends CharacterBody2D
 
 enum Behavior { IDLE, PATROL, SEEK, PATROL_SEEK }
@@ -23,6 +23,16 @@ enum Behavior { IDLE, PATROL, SEEK, PATROL_SEEK }
 @export var behavior: Behavior = Behavior.PATROL_SEEK
 @export var linger_time := 1.0         # seconds to keep chasing after player leaves (for PATROL_SEEK)
 
+# --- Optional: 2-marker patrol (like flying enemy waypoints) ---
+@export var use_waypoints_if_set := true
+@export var waypoint_a_path: NodePath
+@export var waypoint_b_path: NodePath
+@export var arrive_threshold := 6.0     # pixels: when within this X-distance, swap target
+
+var _a: Node2D
+var _b: Node2D
+var _target_is_a := false
+
 var _dir := -1
 var _dead := false
 var _player: CharacterBody2D = null
@@ -32,6 +42,10 @@ var _linger_left := 0.0
 func _ready() -> void:
 	add_to_group("enemy")
 	add_to_group("slowable")
+
+	# cache waypoints (optional)
+	_a = get_node_or_null(waypoint_a_path)
+	_b = get_node_or_null(waypoint_b_path)
 
 	_dir = sign(start_dir)
 	_apply_facing()
@@ -115,6 +129,21 @@ func _physics_process(delta: float) -> void:
 
 # --- behavior helpers ---
 func _do_patrol(ts_h: float) -> void:
+	# If two waypoints are set and enabled, walk between them (ignore wall/gap rays)
+	if use_waypoints_if_set and is_instance_valid(_a) and is_instance_valid(_b):
+		var target_x := (_a.global_position.x if _target_is_a else _b.global_position.x)
+		var dx := target_x - global_position.x
+		# decide direction by X delta
+		if absf(dx) <= arrive_threshold:
+			_target_is_a = !_target_is_a
+			target_x = (_a.global_position.x if _target_is_a else _b.global_position.x)
+			dx = target_x - global_position.x
+		_dir = -1 if dx < 0.0 else 1
+		_apply_facing()
+		velocity.x = _dir * speed * ts_h
+		return
+
+	# Fallback: classic wall/gap patrol using rays
 	var hitting_wall := is_instance_valid(wall_check) and wall_check.is_colliding()
 	var no_ground_ahead := is_instance_valid(ground_check) and not ground_check.is_colliding()
 	if hitting_wall or no_ground_ahead:
@@ -160,7 +189,6 @@ func _on_top_sensor_entered(body: Node) -> void:
 	if _dead: return
 	if body.is_in_group("player") and body is CharacterBody2D:
 		var p := body as CharacterBody2D
-		# BEFORE: p.velocity.y = -stomp_bounce * slowable.ts_v()
 		p.velocity.y = -stomp_bounce  # unscaled by enemy bubble slow
 		die()
 
@@ -173,8 +201,7 @@ func _on_hurtbox_entered(body: Node) -> void:
 func die() -> void:
 	if _dead: return
 	_dead = true
-
-	add_to_group("dying")  # <-- tell spawner we're no longer occupying a slot
+	add_to_group("dying")  # let spawner ignore this slot
 
 	# disable collisions / sensors
 	if is_instance_valid(hurtbox): hurtbox.set_deferred("monitoring", false)
@@ -185,16 +212,14 @@ func die() -> void:
 	collision_mask = 0
 	velocity = Vector2.ZERO
 
-	# play death anim with custom speed scale
 	if anim and anim.sprite_frames and anim.sprite_frames.has_animation("die"):
+		anim.sprite_frames.set_animation_loop("die", false)
 		anim.play("die")
-		# force minimum animation speed
-		anim.speed_scale = max(anim.speed_scale, 0.4)   # 1.0 = normal speed
+		anim.speed_scale = max(anim.speed_scale, 0.4)   # clamp minimum speed
 		if not anim.animation_finished.is_connected(_on_die_anim_done):
 			anim.animation_finished.connect(_on_die_anim_done, CONNECT_ONE_SHOT)
 	else:
 		queue_free()
-
 
 func _on_die_anim_done() -> void:
 	queue_free()

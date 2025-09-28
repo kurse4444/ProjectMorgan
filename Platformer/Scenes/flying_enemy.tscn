@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://16proxfvq756"]
 
-[ext_resource type="PackedScene" uid="uid://dg8phpqs3ucsu" path="res://Scenes/slowable.tscn" id="1_eafc2"]
-[ext_resource type="Script" uid="uid://dd4tuacik5nan" path="res://Scripts/flying_enemy.gd" id="1_gcrhg"]
-[ext_resource type="Texture2D" uid="uid://b41bftniih4u8" path="res://Assets/Art/tilemap-characters_packed.png" id="2_a0nct"]
+[ext_resource type="PackedScene" uid="uid://dg8phpqs3ucsu" path="res://Platformer/Scenes/slowable.tscn" id="1_eafc2"]
+[ext_resource type="Script" uid="uid://dd4tuacik5nan" path="res://Platformer/Scripts/flying_enemy.gd" id="1_gcrhg"]
+[ext_resource type="Texture2D" uid="uid://b41bftniih4u8" path="res://Platformer/Assets/Art/tilemap-characters_packed.png" id="2_a0nct"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gcrhg"]
 radius = 155.46382
@@ -69,7 +69,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ky706"]
-size = Vector2(6, 1.5)
+size = Vector2(12, 1.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1kk2"]
 radius = 6.0827627
