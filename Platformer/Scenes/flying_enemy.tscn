@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b41bftniih4u8" path="res://Platformer/Assets/Art/tilemap-characters_packed.png" id="2_a0nct"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gcrhg"]
-radius = 155.46382
+radius = 56.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tvc0l"]
 atlas = ExtResource("2_a0nct")
@@ -69,7 +69,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ky706"]
-size = Vector2(18, 1.5)
+size = Vector2(16, 1.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1kk2"]
 radius = 6.0827627
@@ -82,7 +82,6 @@ script = ExtResource("1_gcrhg")
 [node name="Slowable" parent="." instance=ExtResource("1_eafc2")]
 
 [node name="DetectionZone" type="Area2D" parent="."]
-visible = false
 collision_layer = 16
 collision_mask = 15
 

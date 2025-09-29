@@ -54,6 +54,7 @@ collision_mask = 31
 script = ExtResource("1_3t3qw")
 
 [node name="Slowable" parent="." instance=ExtResource("1_swwhv")]
+max_factor = 0.6
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_mask = 31
@@ -65,10 +66,10 @@ shape = SubResource("RectangleShape2D_swwhv")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_t1kea")
-animation = &"idle"
+animation = &"press"
 
 [node name="TopCollider" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-7, 2, -4, 0, 4, 0, 7, 2)
+polygon = PackedVector2Array(-8, 2, -5, -1, 0, -1, 5, -1, 8, 2)
 
 [node name="Click" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_slaw3")

@@ -361,6 +361,8 @@ animations = [{
 [node name="DoorGate" type="StaticBody2D"]
 collision_mask = 3
 script = ExtResource("1_ydi5v")
+mode = 2
+debug_gate = false
 open_travel = 48.0
 close_speed = 160.0
 
