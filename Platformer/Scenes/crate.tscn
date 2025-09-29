@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cd8rcf0se5h50"]
+[gd_scene load_steps=4 format=3 uid="uid://cd8rcf0se5h50"]
 
 [ext_resource type="Script" uid="uid://cshjsmw7jnpta" path="res://Platformer/Scripts/crate.gd" id="1_4yaow"]
 [ext_resource type="Texture2D" uid="uid://cg66xnm78fnj6" path="res://Platformer/Assets/Art/tilemap.png" id="1_xewbc"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4yaow"]
+friction = 0.5
+
 [node name="Crate" type="RigidBody2D" groups=["crate"]]
 collision_mask = 19
+physics_material_override = SubResource("PhysicsMaterial_4yaow")
 can_sleep = false
 lock_rotation = true
 script = ExtResource("1_4yaow")

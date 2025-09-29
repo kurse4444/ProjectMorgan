@@ -19,7 +19,7 @@ func _ready() -> void:
 	ray_left.add_exception(self)
 	ray_right.add_exception(self)
 	lock_rotation = true
-	continuous_cd = RigidBody2D.CCD_MODE_CAST_RAY
+	#continuous_cd = RigidBody2D.CCD_MODE_CAST_RAY
 
 func _compute_poly_extents() -> void:
 	if poly == null or poly.polygon.is_empty():
@@ -43,24 +43,35 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if _half_w <= 0.0:
 		return
 
-	var center_x := state.transform.origin.x
-	var right_edge := center_x + _center_off_x + _half_w
-	var left_edge := center_x + _center_off_x - _half_w
+	#var center_x := state.transform.origin.x
+	#var right_edge := center_x + _center_off_x + _half_w
+	#var left_edge := center_x + _center_off_x - _half_w
 
 	# Compute block flags using ray hits
+	#_block_right = false
+	#if ray_right.is_colliding():
+		#var hit_x := ray_right.get_collision_point().x
+		#var gap_right := hit_x - right_edge
+		#if gap_right <= (min_gap_px + margin_px):
+			#_block_right = true
+#
+	#_block_left = false
+	#if ray_left.is_colliding():
+		#var hit_x := ray_left.get_collision_point().x
+		#var gap_left := left_edge - hit_x
+		#if gap_left <= (min_gap_px + margin_px):
+			#_block_left = true
 	_block_right = false
-	if ray_right.is_colliding():
+	if _is_side_hit(ray_right, true):
 		var hit_x := ray_right.get_collision_point().x
-		var gap_right := hit_x - right_edge
-		if gap_right <= (min_gap_px + margin_px):
-			_block_right = true
+		var right_edge := state.transform.origin.x + _center_off_x + _half_w
+		_block_right = (hit_x - right_edge) <= (min_gap_px + margin_px)
 
 	_block_left = false
-	if ray_left.is_colliding():
+	if _is_side_hit(ray_left, false):
 		var hit_x := ray_left.get_collision_point().x
-		var gap_left := left_edge - hit_x
-		if gap_left <= (min_gap_px + margin_px):
-			_block_left = true
+		var left_edge := state.transform.origin.x + _center_off_x - _half_w
+		_block_left = (left_edge - hit_x) <= (min_gap_px + margin_px)
 
 	# Kill velocity *into* blocked side — no position snapping
 	var vel := state.linear_velocity
@@ -77,3 +88,14 @@ func can_push_toward(dir: int) -> bool:
 	elif dir < 0:
 		return not _block_left
 	return false
+
+func _is_side_hit(ray: RayCast2D, right_side: bool) -> bool:
+	if not ray.is_colliding():
+		return false
+	var n := ray.get_collision_normal()
+	# We only care about near-horizontal normals.
+	# Right side should see a normal pointing left (~(-1, 0)).
+	if right_side:
+		return n.x < -0.7
+	else:
+		return n.x > 0.7
