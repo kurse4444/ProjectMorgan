@@ -19,6 +19,15 @@ enum EnemyMode { INHERIT = -1, IDLE = 0, PATROL = 1, SEEK = 2, PATROL_SEEK = 3 }
 @export var behavior_mode: EnemyMode = EnemyMode.INHERIT  # choose from the list
 @export var behavior_name: String = ""                    # OR type "IDLE", "PATROL", "SEEK", "PATROL_SEEK"
 
+# --- Optional: override enemy movement speed on spawn ---
+enum SpeedOverrideMode { NONE, ABSOLUTE, MULTIPLY }
+
+@export var speed_override_mode: SpeedOverrideMode = SpeedOverrideMode.NONE
+@export var speed_override_value := 120.0   # ABSOLUTE: sets speed to this
+# For MULTIPLY: use this as the factor (e.g., 0.75 = slower, 1.5 = faster)
+@export var speed_multiplier := 1.0
+
+
 # ---------------- Spawn cadence ----------------
 @export var spawn_on_ready := true
 @export var initial_delay := 0.0             # seconds before first wave try
@@ -250,6 +259,18 @@ func _target_count() -> int:
 	return max(0, max_concurrent)
 
 # ---------------- Utils ----------------
+func _apply_speed_override(enemy: Object) -> void:
+	if speed_override_mode == SpeedOverrideMode.NONE:
+		return
+	if _has_property(enemy, "speed"):
+		var v : float = enemy.get("speed")
+		match speed_override_mode:
+			SpeedOverrideMode.ABSOLUTE:
+				v = speed_override_value
+			SpeedOverrideMode.MULTIPLY:
+				v = float(v) * speed_multiplier
+		enemy.set("speed", v)
+
 func _player_within_radius() -> bool:
 	var p := get_tree().get_first_node_in_group("player") as Node2D
 	if p == null: return false
@@ -334,6 +355,7 @@ func _spawn_one(spawned_index: int) -> Node:
 		
 	_apply_initial_mode(enemy)
 	_apply_waypoints(enemy)
+	_apply_speed_override(enemy)
 		
 	var pos := _pick_spawn_position(spawned_index)
 	if enemy is Node2D:

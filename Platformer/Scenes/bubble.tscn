@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://b3lqi7khwwkxi"]
 
-[ext_resource type="Script" uid="uid://bv8p3dsp0fj4i" path="res://Scripts/bubble.gd" id="1_y2db8"]
-[ext_resource type="Texture2D" uid="uid://dp7cm5g6to066" path="res://Assets/Art/bubble.png" id="2_amq2t"]
-[ext_resource type="AudioStream" uid="uid://c7tjwo17ekpfh" path="res://Assets/Sound/time bubble 2.wav" id="3_i1mt7"]
+[ext_resource type="Script" uid="uid://bv8p3dsp0fj4i" path="res://Platformer/Scripts/bubble.gd" id="1_y2db8"]
+[ext_resource type="Texture2D" uid="uid://dp7cm5g6to066" path="res://Platformer/Assets/Art/bubble.png" id="2_amq2t"]
+[ext_resource type="AudioStream" uid="uid://c7tjwo17ekpfh" path="res://Platformer/Assets/Sound/time bubble 2.wav" id="3_i1mt7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_05jx6"]
 radius = 314.2857
@@ -30,4 +30,3 @@ shape = SubResource("CircleShape2D_05jx6")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_i1mt7")
-bus = &"SFX"

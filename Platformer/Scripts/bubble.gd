@@ -34,14 +34,14 @@ func _on_body_entered(body: Node) -> void:
 		var s := body.get_node_or_null("Slowable")
 		if s != null and "add_slow" in s:
 			s.add_slow(self, slow_factor)
-			print_debug("[Bubble] +slow", slow_factor, "→", body.name)
+			#print_debug("[Bubble] +slow", slow_factor, "→", body.name)
 
 func _on_body_exited(body: Node) -> void:
 	if body.is_in_group("slowable"):
 		var s := body.get_node_or_null("Slowable")
 		if s != null and "remove_slow" in s:
 			s.remove_slow(self)
-			print_debug("[Bubble] -slow →", body.name)
+			#print_debug("[Bubble] -slow →", body.name)
 
 func _on_life_timeout() -> void:
 	if has_node("Sprite2D"):
@@ -58,4 +58,4 @@ func _exit_tree() -> void:
 			var s := body.get_node_or_null("Slowable")
 			if s != null and "remove_slow" in s:
 				s.remove_slow(self)
-				print_debug("[Bubble] cleanup -slow →", body.name)
+				#print_debug("[Bubble] cleanup -slow →", body.name)

@@ -11,12 +11,14 @@ enum Mode { ALL, ANY, K_OF_N, SEQUENCE }
 @export var inputs: Array[NodePath] = []          # PlateButtons or any node with is_active():bool
 @export var k_required: int = 2                   # for K_OF_N
 @export var seq_step_time: float = 0.5            # per-step window for SEQUENCE (slowable)
+@export var inputs_affect_logic: bool = true
+@export var inputs_affect_visuals: bool = false
 
 # Open/close behavior (all slowable)
 @export var open_duration: float = 0.0            # >0 = auto-close after this time regardless of inputs
 @export var grace_after_release: float = 0.6      # used when open_duration == 0
 @export var start_open: bool = false              # start already open
-@export var start_idle_closed: bool = false       # if true (and not start_open), spawn directly in idle_closed
+@export var start_idle_closed: bool = true       # if true (and not start_open), spawn directly in idle_closed
 
 # Beep feedback (slowable cadence + pitch)
 @export var beep_count: int = 4                   # number of beeps across the window
@@ -28,6 +30,10 @@ enum Mode { ALL, ANY, K_OF_N, SEQUENCE }
 
 # Optional: assign explicitly; if empty we auto-detect
 @export_node_path var collider_path: NodePath
+
+@export var debug_gate: bool = true
+@export var debug_every: float = 0.25
+var _dbg_accum := 0.0
 
 # -------- Nodes --------
 @onready var slow: Slowable = $Slowable
@@ -81,6 +87,8 @@ func _ready() -> void:
 			if n.has_signal("active_changed"):
 				n.connect("active_changed", Callable(self, "_on_input_active_changed"))
 
+	_validate_setup()
+	
 # --- Collect a shape (by TYPE) ---
 	if collider_path != NodePath():
 		_collider = get_node_or_null(collider_path) as CollisionShape2D
@@ -128,10 +136,12 @@ func _ready() -> void:
 	_apply_effective_speeds()
 
 func _physics_process(delta: float) -> void:
-	var eff_ts := effective_time_scale()
-	var dt := delta * eff_ts
-	# keep visuals/audio in sync with effective scale (only when it changes)
-	if not is_equal_approx(eff_ts, _last_eff_ts):
+	var logic_ts := effective_logic_ts()
+	var dt := delta * logic_ts
+
+	# keep visuals/audio in sync when the visual scale changes
+	var vts := effective_visual_ts()
+	if !is_equal_approx(vts, _last_eff_ts):
 		_apply_effective_speeds()
 
 	var satisfied := _evaluate_condition(dt)
@@ -177,6 +187,12 @@ func _physics_process(delta: float) -> void:
 		if is_instance_valid(_collider):
 			_collider.position.y = _target_collider_y
 
+	if debug_gate:
+		_dbg_accum += delta
+	if _dbg_accum >= debug_every:
+		_dbg_accum = 0.0
+		_dbg_dump(satisfied, logic_ts, vts)
+
 
 
 func _on_input_active_changed(_active: bool) -> void:
@@ -219,7 +235,15 @@ func _evaluate_sequence(dt: float) -> bool:
 	return false
 
 func _is_active(n: Node) -> bool:
-	return n != null and "is_active" in n and n.is_active()
+	if n == null:
+		return false
+	# Prefer a richer signal if the input provides it
+	if "is_effectively_active" in n:
+		return n.is_effectively_active()
+	if "is_active" in n:
+		return n.is_active()
+	return false
+
 
 # ---------- Open / Close ----------
 func _open() -> void:
@@ -255,7 +279,7 @@ func _spawn_idle_state(open: bool) -> void:
 
 	# Snap to the matching idle if present; else fall back gracefully
 	if is_instance_valid(anim):
-		anim.speed_scale = effective_time_scale()
+		anim.speed_scale = effective_visual_ts()
 		var idle_name := "idle_open" if open else "idle_closed"
 		if anim.sprite_frames != null and anim.sprite_frames.has_animation(idle_name):
 			anim.play(idle_name)
@@ -276,7 +300,7 @@ func _apply_open_state(open: bool) -> void:
 	if !is_instance_valid(anim):
 		return
 
-	anim.speed_scale = effective_time_scale()
+	anim.speed_scale = effective_visual_ts()
 
 	var trans_name := "open" if open else "close"
 	var idle_name := "idle_open" if open else "idle_closed"
@@ -376,12 +400,12 @@ func effective_time_scale() -> float:
 	return ts
 
 func _apply_effective_speeds() -> void:
-	var eff := effective_time_scale()
+	var vts := effective_visual_ts()
 	if is_instance_valid(anim):
-		anim.speed_scale = eff
+		anim.speed_scale = vts
 	if is_instance_valid(beep):
-		beep.pitch_scale = eff
-	_last_eff_ts = eff
+		beep.pitch_scale = vts
+	_last_eff_ts = vts
 
 func _anim_duration(anim_name: StringName) -> float:
 	if anim == null or anim.sprite_frames == null: return -1.0
@@ -393,3 +417,56 @@ func _anim_duration(anim_name: StringName) -> float:
 		# Godot 4: per-frame durations are supported; falls back to 1/animation_fps in editor defaults
 		total += sf.get_frame_duration(anim_name, i)
 	return max(0.0, total)
+	
+func _inputs_min_ts() -> float:
+	var ts := 1.0
+	for t in _targets:
+		ts = min(ts, _get_node_time_scale(t))
+	return ts
+
+func effective_logic_ts() -> float:
+	var ts := slow.get_time_scale()
+	if inputs_affect_logic and !_targets.is_empty():
+		ts = min(ts, _inputs_min_ts())
+	return ts
+
+func effective_visual_ts() -> float:
+	var ts := slow.get_time_scale()
+	if inputs_affect_visuals and !_targets.is_empty():
+		ts = min(ts, _inputs_min_ts())
+	return ts
+
+func _dbg_dump(satisfied: bool, logic_ts: float, visual_ts: float) -> void:
+	if !debug_gate:
+		return
+	var parts: Array[String] = []
+	parts.append("GateDbg: mode=" + str(mode) + " k=" + str(k_required))
+	parts.append("inputs=" + str(_targets.size()))
+	parts.append("logic_ts=" + String.num(logic_ts, 2))
+	parts.append("visual_ts=" + String.num(visual_ts, 2))
+
+	var states: Array[String] = []
+	for t in _targets:
+		var nm : String = t.name if t != null else "<null>"
+		var act := false
+		if t != null:
+			if "is_effectively_active" in t:
+				act = t.is_effectively_active()
+			elif "is_active" in t:
+				act = t.is_active()
+		var ts := _get_node_time_scale(t) if t != null else 1.0
+		states.append(nm + ":" + ("1" if act else "0") + "@" + String.num(ts, 2))
+
+	parts.append("[" + ", ".join(states) + "]")
+	parts.append("satisfied=" + ("1" if satisfied else "0") + " open=" + ("1" if _is_open else "0"))
+	print_debug(" | ".join(parts))
+
+
+func _validate_setup() -> void:
+	if _targets.is_empty():
+		push_error("DoorGate: inputs list is EMPTY. Assign both PlateButtons in the DoorGate Inspector.")
+	for t in _targets:
+		if t == null:
+			push_warning("DoorGate: an input path points to null.")
+		elif !("is_active" in t):
+			push_error("DoorGate: input '" + t.name + "' has no is_active().")

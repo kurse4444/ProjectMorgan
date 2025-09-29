@@ -13,6 +13,7 @@ signal active_changed(is_active: bool) # true while something is on the plate
 @export var depress_depth: float = 4.0             # how far the top sinks when pressed
 @export var press_speed: float = 120.0             # px/sec toward down position (slowable)
 @export var rise_speed: float = 180.0              # px/sec toward up position (slowable)
+@export var active_lingers_until_recovered: bool = true
 
 # --- Nodes ---
 @onready var slow: Slowable = $Slowable
@@ -154,7 +155,11 @@ func _set_active(v: bool) -> void:
 
 func is_active() -> bool:
 	return _is_active
-	
+
+func is_effectively_active() -> bool:
+	# Count as active while pressed, AND while in recovering (lingering) if enabled
+	return _is_active or (_state == State.RECOVERING and active_lingers_until_recovered)
+
 func _update_audio_pitch() -> void:
 	var p := slow.get_time_scale() if pitch_tracks_slow else 1.0
 	if is_instance_valid(s_click):   s_click.pitch_scale = p
