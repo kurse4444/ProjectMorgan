@@ -52,6 +52,7 @@ animations = [{
 [node name="PlateButton" type="StaticBody2D"]
 collision_mask = 31
 script = ExtResource("1_3t3qw")
+depress_depth = 2.0
 
 [node name="Slowable" parent="." instance=ExtResource("1_swwhv")]
 max_factor = 0.6
@@ -66,9 +67,10 @@ shape = SubResource("RectangleShape2D_swwhv")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_t1kea")
-animation = &"press"
+animation = &"idle"
 
 [node name="TopCollider" type="CollisionPolygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(-8, 2, -5, -1, 0, -1, 5, -1, 8, 2)
 
 [node name="Click" type="AudioStreamPlayer2D" parent="."]

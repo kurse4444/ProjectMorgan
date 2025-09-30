@@ -323,11 +323,12 @@ func _on_bomb_gone(bomb: Node) -> void:
 		_current_bomb = null
 
 func die() -> void:
-	# play death FX, freeze input, etc., then:
+	PlatformerMusic.force_normal(true)  # snap back to base volume
 	emit_signal("died")
 	respawn()
 
 func respawn() -> void:
+	PlatformerMusic.force_normal(true)
 	var spawn := GameState.get_spawn_for_scene(get_tree().current_scene)
 	if spawn == Vector2.ZERO and _default_spawn:
 		spawn = _default_spawn.global_position

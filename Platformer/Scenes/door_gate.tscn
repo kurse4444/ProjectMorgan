@@ -1,8 +1,11 @@
-[gd_scene load_steps=53 format=3 uid="uid://c8iw52lqtqwj8"]
+[gd_scene load_steps=56 format=3 uid="uid://c8iw52lqtqwj8"]
 
 [ext_resource type="Script" uid="uid://cebv6ba1uc73r" path="res://Platformer/Scripts/slowable.gd" id="1_ijwww"]
 [ext_resource type="Script" uid="uid://mh1tjkrp1onp" path="res://Platformer/Scripts/door_gate.gd" id="1_ydi5v"]
+[ext_resource type="AudioStream" uid="uid://xvesskcewn1n" path="res://Platformer/Assets/Sound/planting.wav" id="2_sivki"]
+[ext_resource type="AudioStream" uid="uid://cli2tl160qp1v" path="res://Platformer/Assets/Sound/planting_reversed.wav" id="3_ixnu5"]
 [ext_resource type="Texture2D" uid="uid://dd0mpu3pnbwss" path="res://Platformer/Assets/Art/flower fall.png" id="3_x24kq"]
+[ext_resource type="AudioStream" uid="uid://dswq447y7c5ld" path="res://Platformer/Assets/Sound/acquire key 3.wav" id="4_ixnu5"]
 [ext_resource type="Texture2D" uid="uid://b48swxbwuwqot" path="res://Platformer/Assets/Art/flower.png" id="6_xmufi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edsbj"]
@@ -361,7 +364,10 @@ animations = [{
 [node name="DoorGate" type="StaticBody2D"]
 collision_mask = 3
 script = ExtResource("1_ydi5v")
-mode = 2
+open_stream = ExtResource("2_sivki")
+close_stream = ExtResource("3_ixnu5")
+unlock_stream = ExtResource("4_ixnu5")
+unlock_volume_db = 20.0
 debug_gate = false
 open_travel = 48.0
 close_speed = 160.0

@@ -14,6 +14,8 @@ func _on_body_entered(body: Node) -> void:
 		return
 	triggered = true
 
+	PlatformerMusic.stop()
+	
 	# (Optional) If you previously froze the player, delete those lines to keep gameplay going.
 
 	# ---- Delay BEFORE music (game continues) ----

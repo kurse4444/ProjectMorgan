@@ -5,12 +5,14 @@
 
 [node name="Crate" type="RigidBody2D" groups=["crate"]]
 collision_mask = 19
-mass = 3.0
 can_sleep = false
 lock_rotation = true
 script = ExtResource("1_4yaow")
 min_gap_px = 20.0
 margin_px = 2.0
+air_drag = -20.0
+floor_drag = 20.0
+max_correct_speed = 50.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

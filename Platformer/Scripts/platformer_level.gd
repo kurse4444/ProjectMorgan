@@ -16,6 +16,7 @@ func _ready() -> void:
 	#_force_loop(bgm.stream)
 	#if not bgm.playing:
 		#bgm.play()
+	PlatformerMusic.play_bgm(preload("res://Platformer/Assets/Sound/8 bit main theme.wav"))
 	player.died.connect(_on_player_died)
 
 func _input(_event: InputEvent) -> void:
@@ -25,6 +26,13 @@ func _input(_event: InputEvent) -> void:
 			# Optional: feedback like show_toast("Bubble locked")
 			return
 		_spawn_bubble(get_global_mouse_position())
+		
+	if Input.is_action_just_pressed("reset_level"):
+		_reset_level()
+		
+	if Input.is_action_just_pressed("show_menu"):
+		PlatformerMusic.stop()
+		get_tree().change_scene_to_file("res://Menu/main_menu.tscn")
 
 func _spawn_bubble(pos: Vector2) -> void:
 	if bubble_scene == null:

@@ -25,6 +25,23 @@ enum Mode { ALL, ANY, K_OF_N, SEQUENCE }
 @export var beep_on_open_window: bool = true      # used when open_duration > 0
 @export var beep_on_grace_window: bool = true     # used when open_duration == 0
 
+# --- One-shot SFX for opening/closing (assign in Inspector) ---
+@export var open_stream: AudioStream
+@export var close_stream: AudioStream
+@export var open_volume_db: float = 0.0
+@export var close_volume_db: float = 0.0
+@export var sfx_pitch_tracks_visual_slow: bool = true  # pitch slows only if the *gate* is bubbled
+
+@onready var s_open: AudioStreamPlayer2D = get_node_or_null("OpenSfx") as AudioStreamPlayer2D
+@onready var s_close: AudioStreamPlayer2D = get_node_or_null("CloseSfx") as AudioStreamPlayer2D
+
+# --- One-shot SFX when the inputs become satisfied (gate "unlocks") ---
+@export var unlock_stream: AudioStream
+@export var unlock_volume_db: float = 0.0
+@export var play_unlock_only_when_closed: bool = true  # avoid spam if already open
+
+@onready var s_unlock: AudioStreamPlayer2D = get_node_or_null("UnlockSfx") as AudioStreamPlayer2D
+
 # Timescale inheritance: when true, the gate uses the MIN time scale of itself and its inputs.
 @export var inherit_input_timescale: bool = true
 
@@ -74,6 +91,7 @@ var _last_eff_ts: float = 1.0
 
 var _base_collider_y: float = 0.0         # rest Y of the collider (closed)
 var _target_collider_y: float = 0.0       # where we want it this frame
+var _prev_condition := false
 
 
 func _ready() -> void:
@@ -134,6 +152,38 @@ func _ready() -> void:
 
 	# Ensure initial speeds reflect inputs too
 	_apply_effective_speeds()
+	
+	# --- Open/Close SFX setup ---
+	if s_open == null:
+		s_open = AudioStreamPlayer2D.new()
+		s_open.name = "OpenSfx"
+		add_child(s_open)
+	if s_close == null:
+		s_close = AudioStreamPlayer2D.new()
+		s_close.name = "CloseSfx"
+		add_child(s_close)
+
+	# Assign streams from Inspector (optional—can also set directly on the child nodes)
+	if open_stream != null:
+		s_open.stream = open_stream
+	if close_stream != null:
+		s_close.stream = close_stream
+
+	s_open.volume_db = open_volume_db
+	s_close.volume_db = close_volume_db
+
+	_update_sfx_pitch()  # set initial pitch
+
+		# --- Unlock SFX setup ---
+	if s_unlock == null:
+		s_unlock = AudioStreamPlayer2D.new()
+		s_unlock.name = "UnlockSfx"
+		add_child(s_unlock)
+
+	if unlock_stream != null:
+		s_unlock.stream = unlock_stream
+	s_unlock.volume_db = unlock_volume_db
+
 
 func _physics_process(delta: float) -> void:
 	var logic_ts := effective_logic_ts()
@@ -146,6 +196,16 @@ func _physics_process(delta: float) -> void:
 
 	var satisfied := _evaluate_condition(dt)
 	condition_changed.emit(satisfied)
+	# Play "unlock" when condition goes false -> true
+	var just_unlocked := satisfied and !_prev_condition
+	if just_unlocked:
+		if !play_unlock_only_when_closed or !_is_open:
+			if is_instance_valid(s_unlock) and s_unlock.stream != null:
+				# ensure pitch is up-to-date at play time
+				s_unlock.pitch_scale = effective_visual_ts()
+				s_unlock.volume_db = unlock_volume_db
+				s_unlock.play()
+	_prev_condition = satisfied
 
 	if satisfied:
 		if !_is_open: _open()
@@ -251,6 +311,9 @@ func _open() -> void:
 	_seq_index = 0
 	_seq_timer = 0.0
 	_play_state(true)
+	if is_instance_valid(s_open) and s_open.stream != null:  # <-- play open SFX
+		s_open.volume_db = open_volume_db
+		s_open.play()
 	opened.emit()
 
 	if open_duration > 0.0:
@@ -264,6 +327,9 @@ func _close() -> void:
 	_is_open = false
 	_stop_beeps()
 	_play_state(false)
+	if is_instance_valid(s_close) and s_close.stream != null: # <-- play close SFX
+		s_close.volume_db = close_volume_db
+		s_close.play()
 	closed.emit()
 
 func _force_open() -> void:
@@ -405,6 +471,7 @@ func _apply_effective_speeds() -> void:
 		anim.speed_scale = vts
 	if is_instance_valid(beep):
 		beep.pitch_scale = vts
+	_update_sfx_pitch()
 	_last_eff_ts = vts
 
 func _anim_duration(anim_name: StringName) -> float:
@@ -470,3 +537,9 @@ func _validate_setup() -> void:
 			push_warning("DoorGate: an input path points to null.")
 		elif !("is_active" in t):
 			push_error("DoorGate: input '" + t.name + "' has no is_active().")
+
+func _update_sfx_pitch() -> void:
+	var p := effective_visual_ts() if sfx_pitch_tracks_visual_slow else 1.0
+	if is_instance_valid(s_unlock): s_unlock.pitch_scale = p
+	if is_instance_valid(s_open):  s_open.pitch_scale = p
+	if is_instance_valid(s_close): s_close.pitch_scale = p
