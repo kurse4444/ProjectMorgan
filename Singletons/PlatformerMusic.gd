@@ -4,7 +4,7 @@ extends Node
 var player: AudioStreamPlayer
 var _t: Tween = null
 
-var _base_gain_db := 0.0      # user/base volume (persist if you ever add settings)
+var _base_gain_db := -10.0      # user/base volume (persist if you ever add settings)
 var _duck_offset_db := 0.0    # temporary duck; NEVER saved
 
 func _ready() -> void:
