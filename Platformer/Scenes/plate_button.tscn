@@ -52,7 +52,6 @@ animations = [{
 [node name="PlateButton" type="StaticBody2D"]
 collision_mask = 31
 script = ExtResource("1_3t3qw")
-depress_depth = 2.0
 
 [node name="Slowable" parent="." instance=ExtResource("1_swwhv")]
 max_factor = 0.6
