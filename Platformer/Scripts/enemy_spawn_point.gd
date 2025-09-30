@@ -45,6 +45,8 @@ enum SpeedOverrideMode { NONE, ABSOLUTE, MULTIPLY }
 # If >0, this is the target. If 0, it uses max_concurrent (if >0). If both 0 → no maintenance.
 @export var target_concurrent := 0
 @export var maintain_active := true
+@export var activation_retry_interval := 0.25  # used only when gates block and spawn_interval == 0
+
 
 # ---------------- Respawn after death ----------------
 @export var respawn_on_death := true
@@ -162,17 +164,22 @@ func _on_spawn_timer_timeout() -> void:
 	_first_tick_done = true
 	_compact_active_list()
 	_dbg("wave-before")
-		# Spawn up to per_wave_count but never beyond our target / limits
+
 	var need := _remaining_to_target()
 	if need > 0:
 		var want : int = min(per_wave_count, need)
-		if debug_print:
-			print("[wave] want=", want)
-		var if_spawned := await _try_spawn(want, true)
-		if debug_print:
-			print("[wave] spawned=", if_spawned)
+		if debug_print: print("[wave] want=", want)
+		var spawned_now: int = await _try_spawn(want, true)
+		if debug_print: print("[wave] spawned=", spawned_now)
+
+		# Retry quickly only if gates blocked and waves are off
+		if spawned_now == 0 and spawn_interval <= 0.0 and (require_on_screen or require_player_in_radius):
+			_schedule_next_wave(activation_retry_interval)
+			return
+
 	_dbg("wave-after")
 	_schedule_next_wave(spawn_interval)
+
 
 # ---------------- Refill timer (coalesced) ----------------
 func _queue_refill_after(wait: float) -> void:
@@ -196,14 +203,19 @@ func _on_refill_timeout() -> void:
 func _incremental_refill() -> void:
 	if not respawn_on_death:
 		return
+
 	var need := _remaining_to_target()
 	if need <= 0:
 		return
-	var spawned_now := await _try_spawn(min(per_wave_count, need), true)
+
+	var spawned_now: int = await _try_spawn(min(per_wave_count, need), true)
 	need -= spawned_now
+
 	if need > 0:
-		# keep trickling in more after respawn_delay
-		_queue_refill_after(respawn_delay)
+		var retry := activation_retry_interval if (spawned_now == 0 and spawn_interval <= 0.0 and (require_on_screen or require_player_in_radius)) \
+			else respawn_delay
+		_queue_refill_after(retry)
+
 
 # ---------------- Core spawn logic ----------------
 func _try_spawn(wanted: int, enforce_target := true) -> int:
@@ -297,11 +309,19 @@ func _schedule_next_wave(base: float) -> void:
 func _run_wave_now() -> void:
 	_first_tick_done = true
 	_compact_active_list()
+
 	var need := _remaining_to_target()
 	if need > 0:
-		await _try_spawn(min(per_wave_count, need), true)
+		var spawned_now: int = await _try_spawn(min(per_wave_count, need), true)
+
+		# Retry quickly only if gates blocked and waves are off
+		if spawned_now == 0 and spawn_interval <= 0.0 and (require_on_screen or require_player_in_radius):
+			_schedule_next_wave(activation_retry_interval)
+			return
+
 	if spawn_interval > 0.0:
 		_schedule_next_wave(spawn_interval)
+
 
 func _jitter_amount() -> float:
 	if spawn_interval_jitter <= 0.0: return 0.0

@@ -28,8 +28,8 @@ enum Mode { ALL, ANY, K_OF_N, SEQUENCE }
 # --- One-shot SFX for opening/closing (assign in Inspector) ---
 @export var open_stream: AudioStream
 @export var close_stream: AudioStream
-@export var open_volume_db: float = 0.0
-@export var close_volume_db: float = 0.0
+@export var open_volume_db: float = 10
+@export var close_volume_db: float = 10
 @export var sfx_pitch_tracks_visual_slow: bool = true  # pitch slows only if the *gate* is bubbled
 
 @onready var s_open: AudioStreamPlayer2D = get_node_or_null("OpenSfx") as AudioStreamPlayer2D
