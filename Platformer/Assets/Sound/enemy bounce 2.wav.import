@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cuy763tqb7l4n"
+path="res://.godot/imported/enemy bounce 2.wav-f8c4ae8b8e2c4d2d9ac5920e7f8b0496.sample"
+
+[deps]
+
+source_file="res://Platformer/Assets/Sound/enemy bounce 2.wav"
+dest_files=["res://.godot/imported/enemy bounce 2.wav-f8c4ae8b8e2c4d2d9ac5920e7f8b0496.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

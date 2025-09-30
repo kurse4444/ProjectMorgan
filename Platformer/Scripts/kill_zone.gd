@@ -7,3 +7,7 @@ func _ready() -> void:
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("player") and body.has_method("die"):
 		body.die()
+
+	# Bombs
+	if body.is_in_group("bomb"):
+		body.queue_free()				# silent vanish

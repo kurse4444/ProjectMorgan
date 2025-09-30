@@ -61,19 +61,30 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		#var gap_left := left_edge - hit_x
 		#if gap_left <= (min_gap_px + margin_px):
 			#_block_left = true
-	_block_right = false
-	if _is_side_hit(ray_right, true):
-		var hit_x := ray_right.get_collision_point().x
-		var right_edge := state.transform.origin.x + _center_off_x + _half_w
-		_block_right = (hit_x - right_edge) <= (min_gap_px + margin_px)
-
-	_block_left = false
-	if _is_side_hit(ray_left, false):
-		var hit_x := ray_left.get_collision_point().x
-		var left_edge := state.transform.origin.x + _center_off_x - _half_w
-		_block_left = (left_edge - hit_x) <= (min_gap_px + margin_px)
-
+			
+	#_block_right = false
+	#if _is_side_hit(ray_right, true):
+		#var hit_x := ray_right.get_collision_point().x
+		#var right_edge := state.transform.origin.x + _center_off_x + _half_w
+		#_block_right = (hit_x - right_edge) <= (min_gap_px + margin_px)
+#
+	#_block_left = false
+	#if _is_side_hit(ray_left, false):
+		#var hit_x := ray_left.get_collision_point().x
+		#var left_edge := state.transform.origin.x + _center_off_x - _half_w
+		#_block_left = (left_edge - hit_x) <= (min_gap_px + margin_px)
+		
 	# Kill velocity *into* blocked side — no position snapping
+	#var vel := state.linear_velocity
+	#if _block_right and vel.x > 0.0:
+		#vel.x = 0.0
+	#if _block_left and vel.x < 0.0:
+		#vel.x = 0.0
+	#state.linear_velocity = vel
+	
+	_block_right = _side_blocked(state, true)
+	_block_left  = _side_blocked(state, false)
+
 	var vel := state.linear_velocity
 	if _block_right and vel.x > 0.0:
 		vel.x = 0.0
@@ -99,3 +110,52 @@ func _is_side_hit(ray: RayCast2D, right_side: bool) -> bool:
 		return n.x < -0.7
 	else:
 		return n.x > 0.7
+
+func _side_blocked(state: PhysicsDirectBodyState2D, right_side: bool) -> bool:
+	var space := state.get_space_state()
+
+	# pick ray and y offset
+	var y_off: float
+	if right_side:
+		y_off = ray_right.position.y
+	else:
+		y_off = ray_left.position.y
+
+	# start point at the crate's side, mid-height
+	var from_local_x := _center_off_x
+	if right_side:
+		from_local_x += _half_w
+	else:
+		from_local_x -= _half_w
+
+	var from := state.transform * Vector2(from_local_x, y_off)
+
+	# cast horizontally outwards
+	var cast_len := min_gap_px + margin_px + 4.0
+	var to := from
+	if right_side:
+		to.x += cast_len
+	else:
+		to.x -= cast_len
+
+	var p := PhysicsRayQueryParameters2D.create(from, to)
+	p.exclude = [self]
+	if right_side:
+		p.collision_mask = ray_right.collision_mask
+	else:
+		p.collision_mask = ray_left.collision_mask
+
+	var hit := space.intersect_ray(p)
+	if hit.is_empty():
+		return false
+
+	# Only treat near-horizontal hits as side walls
+	var n: Vector2 = hit["normal"]
+	if right_side:
+		if n.x > -0.7:
+			return false
+	else:
+		if n.x < 0.7:
+			return false
+
+	return true

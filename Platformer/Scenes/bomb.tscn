@@ -1,10 +1,10 @@
 [gd_scene load_steps=25 format=3 uid="uid://bry5e0hqr70ns"]
 
-[ext_resource type="Script" uid="uid://f4osqwomakx6" path="res://Scripts/bomb.gd" id="1_60xmw"]
-[ext_resource type="Texture2D" uid="uid://b878yydco58ft" path="res://Assets/Art/bomb_thrown_anim_strip_3.png" id="1_kdyat"]
-[ext_resource type="Texture2D" uid="uid://ci0dmbgnboh2o" path="res://Assets/Art/bomb_on_ground_anim_strip_8.png" id="2_2fiif"]
-[ext_resource type="AudioStream" uid="uid://csbblvb16nbqp" path="res://Assets/Sound/bomb 2.wav" id="2_l8kb1"]
-[ext_resource type="PackedScene" uid="uid://dg8phpqs3ucsu" path="res://Scenes/slowable.tscn" id="3_2fiif"]
+[ext_resource type="Script" uid="uid://f4osqwomakx6" path="res://Platformer/Scripts/bomb.gd" id="1_60xmw"]
+[ext_resource type="Texture2D" uid="uid://b878yydco58ft" path="res://Platformer/Assets/Art/bomb_thrown_anim_strip_3.png" id="1_kdyat"]
+[ext_resource type="Texture2D" uid="uid://ci0dmbgnboh2o" path="res://Platformer/Assets/Art/bomb_on_ground_anim_strip_8.png" id="2_2fiif"]
+[ext_resource type="AudioStream" uid="uid://csbblvb16nbqp" path="res://Platformer/Assets/Sound/bomb 2.wav" id="2_l8kb1"]
+[ext_resource type="PackedScene" uid="uid://dg8phpqs3ucsu" path="res://Platformer/Scenes/slowable.tscn" id="3_2fiif"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60xmw"]
 atlas = ExtResource("1_kdyat")
@@ -195,7 +195,7 @@ height = 14.0
 collision_layer = 8
 collision_mask = 21
 script = ExtResource("1_60xmw")
-upright_damp = 15.0
+upright_damp = 20.0
 explode_sfx = ExtResource("2_l8kb1")
 explode_sfx_volume_db = 15.0
 

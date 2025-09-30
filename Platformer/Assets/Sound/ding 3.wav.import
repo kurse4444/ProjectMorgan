@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://b50sxb2ie3rih"
-path="res://.godot/imported/bomb.wav-6a652f2a3361607046ea884d15ea073d.sample"
+uid="uid://c5tb1xjbq81eq"
+path="res://.godot/imported/ding 3.wav-732cb99b5f6c123c32961e7c6506f972.sample"
 
 [deps]
 
-source_file="res://Platformer/Assets/Sound/bomb.wav"
-dest_files=["res://.godot/imported/bomb.wav-6a652f2a3361607046ea884d15ea073d.sample"]
+source_file="res://Platformer/Assets/Sound/ding 3.wav"
+dest_files=["res://.godot/imported/ding 3.wav-732cb99b5f6c123c32961e7c6506f972.sample"]
 
 [params]
 

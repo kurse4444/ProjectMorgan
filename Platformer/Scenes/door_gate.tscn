@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b48swxbwuwqot" path="res://Platformer/Assets/Art/flower.png" id="6_xmufi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edsbj"]
-size = Vector2(14, 44)
+size = Vector2(16, 44)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qwka4"]
 atlas = ExtResource("3_x24kq")
@@ -367,7 +367,7 @@ open_travel = 48.0
 close_speed = 160.0
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2(2, 2)
+position = Vector2(1, 2)
 shape = SubResource("RectangleShape2D_edsbj")
 
 [node name="Slowable" type="Node" parent="."]

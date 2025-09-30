@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b41bftniih4u8" path="res://Platformer/Assets/Art/tilemap-characters_packed.png" id="2_a0nct"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gcrhg"]
-radius = 56.0
+radius = 51.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tvc0l"]
 atlas = ExtResource("2_a0nct")

@@ -129,27 +129,33 @@ func _physics_process(delta: float) -> void:
 
 # --- behavior helpers ---
 func _do_patrol(ts_h: float) -> void:
-	# If two waypoints are set and enabled, walk between them (ignore wall/gap rays)
+	var hitting_wall := is_instance_valid(wall_check) and wall_check.is_colliding()
+	var no_ground_ahead := is_instance_valid(ground_check) and not ground_check.is_colliding()
+
+	# If two waypoints are set and enabled, walk between them
 	if use_waypoints_if_set and is_instance_valid(_a) and is_instance_valid(_b):
+		# Pick current target
 		var target_x := (_a.global_position.x if _target_is_a else _b.global_position.x)
 		var dx := target_x - global_position.x
-		# decide direction by X delta
-		if absf(dx) <= arrive_threshold:
-			_target_is_a = !_target_is_a
+
+		# ARRIVE or BLOCKED? -> flip target
+		if absf(dx) <= arrive_threshold or hitting_wall or no_ground_ahead:
+			_target_is_a = not _target_is_a
 			target_x = (_a.global_position.x if _target_is_a else _b.global_position.x)
 			dx = target_x - global_position.x
+
+		# Move toward (possibly flipped) target
 		_dir = -1 if dx < 0.0 else 1
 		_apply_facing()
 		velocity.x = _dir * speed * ts_h
 		return
 
-	# Fallback: classic wall/gap patrol using rays
-	var hitting_wall := is_instance_valid(wall_check) and wall_check.is_colliding()
-	var no_ground_ahead := is_instance_valid(ground_check) and not ground_check.is_colliding()
+	# Fallback: classic ray-based patrol
 	if hitting_wall or no_ground_ahead:
 		_dir *= -1
 		_apply_facing()
 	velocity.x = _dir * speed * ts_h
+
 
 func _seek_horizontal(ts_h: float) -> void:
 	# Move horizontally toward player's X while seeking/patrol-seeking
