@@ -489,14 +489,14 @@ theme_override_colors/font_color = Color(0.3656204, 0.58364093, 0.5716184, 0.992
 theme_override_constants/paragraph_spacing = -6
 theme_override_fonts/font = ExtResource("14_u6jb2")
 theme_override_font_sizes/font_size = 6
-text = "Left: A
+text = "Left:  A
 Right: D"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="Hints"]
-offset_left = 277.0
+offset_left = 339.0
 offset_top = 85.0
-offset_right = 422.0
+offset_right = 484.0
 offset_bottom = 118.0
 theme_override_colors/font_color = Color(0.3656204, 0.58364093, 0.5716184, 0.99215686)
 theme_override_constants/paragraph_spacing = -6
@@ -570,6 +570,19 @@ text = "Certain blocks can
 be destroyed"
 horizontal_alignment = 1
 
+[node name="Label8" type="Label" parent="Hints"]
+offset_left = 1108.0
+offset_top = -6.0
+offset_right = 1200.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color(0.3656204, 0.58364093, 0.5716184, 0.99215686)
+theme_override_constants/paragraph_spacing = -6
+theme_override_fonts/font = ExtResource("14_u6jb2")
+theme_override_font_sizes/font_size = 6
+text = "R: reset level
+M: main menu"
+horizontal_alignment = 1
+
 [node name="UnlockArea2D" parent="." instance=ExtResource("15_7girl")]
 position = Vector2(1482, 121)
 scale = Vector2(1.3838601, 1.3838601)
@@ -640,7 +653,7 @@ position = Vector2(36, -6)
 [node name="Enemies" type="Node2D" parent="LevelOne"]
 
 [node name="WalkingEnemy" parent="LevelOne/Enemies" instance=ExtResource("4_jejm7")]
-position = Vector2(349, 168)
+position = Vector2(411, 168)
 behavior = 0
 
 [node name="EnemySpawnPoint" parent="LevelOne/Enemies" instance=ExtResource("6_p88yu")]
