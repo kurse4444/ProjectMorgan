@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bbl2ovsqc6206"
+path="res://.godot/imported/idle day theme.ogg-47ab7a16ea0003b547d177f3ba28c763.oggvorbisstr"
+
+[deps]
+
+source_file="res://Idle/assets/audio/music/idle day theme.ogg"
+dest_files=["res://.godot/imported/idle day theme.ogg-47ab7a16ea0003b547d177f3ba28c763.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

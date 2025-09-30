@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://pgnnp8kuokm6"]
+
+[ext_resource type="Script" uid="uid://75xicgpnwvup" path="res://Idle/scripts/core/ShopSlot.cs" id="1_bs2sa"]
+
+[node name="ShopSlot" type="Panel"]
+custom_minimum_size = Vector2(15, 15)
+script = ExtResource("1_bs2sa")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.01
+anchor_top = 0.50200003
+anchor_right = 1.01
+anchor_bottom = 0.50200003
+offset_top = -3.5300007
+offset_right = 65.0
+offset_bottom = 4.4699993
+theme_override_font_sizes/font_size = 5
+text = "____________"
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 4.3548374
+offset_bottom = 4.3548374
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.775, 0.775)
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Price" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.01
+anchor_top = 0.50200003
+anchor_right = 1.01
+anchor_bottom = 0.50200003
+offset_left = -50.15
+offset_top = 2.4699993
+offset_right = -1.1499996
+offset_bottom = 14.469999
+theme_override_font_sizes/font_size = 2
+text = "0000000000"
+horizontal_alignment = 2

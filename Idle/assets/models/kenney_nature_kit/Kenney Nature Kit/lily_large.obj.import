@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dhile0tumyba5"
+path="res://.godot/imported/lily_large.obj-e9be9bedc120b6cc05fc97e0836807bb.mesh"
+
+[deps]
+
+files=["res://.godot/imported/lily_large.obj-e9be9bedc120b6cc05fc97e0836807bb.mesh"]
+
+source_file="res://Idle/assets/models/kenney_nature_kit/Kenney Nature Kit/lily_large.obj"
+dest_files=["res://.godot/imported/lily_large.obj-e9be9bedc120b6cc05fc97e0836807bb.mesh", "res://.godot/imported/lily_large.obj-e9be9bedc120b6cc05fc97e0836807bb.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

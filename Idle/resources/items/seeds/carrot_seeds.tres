@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Seeds" load_steps=4 format=3 uid="uid://7i451jqhypmn"]
+
+[ext_resource type="Resource" uid="uid://dbtp4lokff208" path="res://Idle/resources/crops/carrot_crop.tres" id="1_ijy44"]
+[ext_resource type="Texture2D" uid="uid://b2y7kolt0mcky" path="res://Idle/assets/textures/Farm_Icons/farm-seeds16.png" id="2_obpej"]
+[ext_resource type="Script" uid="uid://y8pgkqxxh4l7" path="res://Idle/scripts/items/Seeds.cs" id="3_de6ym"]
+
+[resource]
+script = ExtResource("3_de6ym")
+CropToGrow = ExtResource("1_ijy44")
+Id = "seeds_carrot"
+Name = "Carrot Seeds"
+Description = "Carrot Seeds"
+Icon = ExtResource("2_obpej")
+StackSize = 99
+Value = 1
+metadata/_custom_type_script = "uid://y8pgkqxxh4l7"

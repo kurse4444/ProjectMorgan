@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Tool" load_steps=3 format=3 uid="uid://cjpcsdf2a2r77"]
+
+[ext_resource type="Texture2D" uid="uid://cki5fb14b1lwq" path="res://Platformer/Assets/Art/bomb.png" id="1_a1e6i"]
+[ext_resource type="Script" uid="uid://dohdemp0vai46" path="res://Idle/scripts/items/Tool.cs" id="2_a1e6i"]
+
+[resource]
+script = ExtResource("2_a1e6i")
+EffectValue = 0.0
+Id = "bomb"
+Name = "Bomb"
+Description = "Bomb"
+Icon = ExtResource("1_a1e6i")
+Value = 200
+metadata/_custom_type_script = "uid://cvojing8jebd6"

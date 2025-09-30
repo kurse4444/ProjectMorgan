@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cssof2vh4hxle"
+path="res://.godot/imported/plant_bushLarge.obj-9a2d9e6fcdee89dbd29e6f5dcb76cda2.mesh"
+
+[deps]
+
+files=["res://.godot/imported/plant_bushLarge.obj-9a2d9e6fcdee89dbd29e6f5dcb76cda2.mesh"]
+
+source_file="res://Idle/assets/models/kenney_nature_kit/Kenney Nature Kit/plant_bushLarge.obj"
+dest_files=["res://.godot/imported/plant_bushLarge.obj-9a2d9e6fcdee89dbd29e6f5dcb76cda2.mesh", "res://.godot/imported/plant_bushLarge.obj-9a2d9e6fcdee89dbd29e6f5dcb76cda2.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

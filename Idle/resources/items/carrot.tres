@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://c58tmepfjntw7"]
+
+[ext_resource type="Texture2D" uid="uid://dwupttujoj4dv" path="res://Idle/assets/textures/kenney_nature_kit/crop_carrot.png" id="1_ahuti"]
+[ext_resource type="Script" uid="uid://cvojing8jebd6" path="res://Idle/scripts/items/Item.cs" id="2_ahuti"]
+
+[resource]
+script = ExtResource("2_ahuti")
+Id = "carrot"
+Name = "Carrot"
+Description = "Carrot"
+Icon = ExtResource("1_ahuti")
+StackSize = 99
+Value = 5
+metadata/_custom_type_script = "uid://cvojing8jebd6"

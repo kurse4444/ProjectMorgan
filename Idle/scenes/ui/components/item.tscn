@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://c72ipfhk84rrq"]
+
+[ext_resource type="Texture2D" uid="uid://dwupttujoj4dv" path="res://Idle/assets/textures/kenney_nature_kit/crop_carrot.png" id="1_po28d"]
+
+[node name="Item" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -18.0
+offset_right = 20.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_po28d")
+stretch_mode = 5
+
+[node name="Quantity" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "1"

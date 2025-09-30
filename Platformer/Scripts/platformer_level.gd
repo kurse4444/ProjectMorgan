@@ -29,10 +29,6 @@ func _input(_event: InputEvent) -> void:
 		
 	if Input.is_action_just_pressed("reset_level"):
 		_reset_level()
-		
-	if Input.is_action_just_pressed("show_menu"):
-		PlatformerMusic.stop()
-		get_tree().change_scene_to_file("res://Menu/main_menu.tscn")
 
 func _spawn_bubble(pos: Vector2) -> void:
 	if bubble_scene == null:
@@ -89,7 +85,44 @@ func _on_player_died() -> void:
 		player.respawn()
 
 func _reset_level() -> void:
-	# Optional: fade-out, stop input, etc.
-	await get_tree().process_frame
-	get_tree().reload_current_scene()
-	# Alternative: change_scene_to_packed(preload("res://LevelA.tscn"))
+	# Get parent before removing self
+	var parent = get_parent()
+	parent.call_deferred("ResetPlatformerLevel")
+
+
+func HideLevel():
+	visible = false
+	PlatformerMusic.stop_bgm()
+	# Disable run_left, run_right
+	InputMap.action_erase_events("run_left")
+	InputMap.action_erase_events("run_right")
+	InputMap.action_erase_events("place_bubble")
+	InputMap.action_erase_events("reset_level")
+	InputMap.action_erase_events("throw_bomb")
+
+func ShowLevel():
+	visible = true
+	PlatformerMusic.play_bgm(preload("res://Platformer/Assets/Sound/8 bit main theme.wav"))
+	
+	# Enable run_left, run_right
+	var left_event := InputEventKey.new()
+	left_event.keycode = KEY_A
+	InputMap.action_add_event("run_left", left_event)
+
+	var right_event := InputEventKey.new()
+	right_event.keycode = KEY_D
+	InputMap.action_add_event("run_right", right_event)
+
+
+	var bubble_event := InputEventMouseButton.new()
+	bubble_event.button_index = MOUSE_BUTTON_RIGHT
+	InputMap.action_add_event("place_bubble", bubble_event)
+
+	var reset_event := InputEventKey.new()
+	reset_event.keycode = KEY_R
+	InputMap.action_add_event("reset_level", reset_event)
+
+	var esc_event := InputEventKey.new()
+	esc_event.keycode = KEY_W
+	InputMap.action_add_event("throw_bomb", esc_event)
+	

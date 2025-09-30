@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Crop" load_steps=6 format=3 uid="uid://dbtp4lokff208"]
+
+[ext_resource type="Resource" uid="uid://c58tmepfjntw7" path="res://Idle/resources/items/carrot.tres" id="1_4ia3e"]
+[ext_resource type="PackedScene" uid="uid://ddgu8d34s1w14" path="res://Idle/scenes/crops/carrots/carrot_stage_1.tscn" id="3_5gvyi"]
+[ext_resource type="PackedScene" uid="uid://dmfwupigueu2l" path="res://Idle/scenes/crops/carrots/carrot_stage_2.tscn" id="4_36y4l"]
+[ext_resource type="Script" uid="uid://dwmkk13rwc7or" path="res://Idle/scripts/crops/Crop.cs" id="5_gtb7u"]
+[ext_resource type="PackedScene" uid="uid://cts30o3omg560" path="res://Idle/scenes/crops/carrots/carrot_stage_3.tscn" id="5_klusq"]
+
+[resource]
+script = ExtResource("5_gtb7u")
+CropName = "Carrot Crop"
+HarvestItem = ExtResource("1_4ia3e")
+StageModels = Array[PackedScene]([ExtResource("3_5gvyi"), ExtResource("4_36y4l"), ExtResource("5_klusq")])
+TimePerStage = 40.0
+GrowthTimeVariance = 0.3
+metadata/_custom_type_script = "uid://dwmkk13rwc7or"

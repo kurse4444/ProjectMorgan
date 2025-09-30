@@ -22,6 +22,10 @@ func play_bgm(stream: AudioStream) -> void:
 	_apply_volume()
 	player.play()
 
+func stop_bgm() -> void:
+	if player.playing:
+		player.stop()
+
 func set_base_gain_db(db: float) -> void:
 	_base_gain_db = db
 	_apply_volume()

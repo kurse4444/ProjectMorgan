@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://5fhxmc4ydxbc"]
+
+[ext_resource type="ArrayMesh" uid="uid://dwrhou7o62540" path="res://Idle/assets/models/kenney_nature_kit/Kenney Nature Kit/crop_melon.obj" id="1_j6laj"]
+
+[node name="WatermelonStage0" type="Node3D"]
+
+[node name="CropMelon" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = ExtResource("1_j6laj")

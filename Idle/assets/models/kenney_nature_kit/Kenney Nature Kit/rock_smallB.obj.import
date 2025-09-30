@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dcn73oixy4r51"
+path="res://.godot/imported/rock_smallB.obj-605ae439a2cf2a88241ad7c850091ace.mesh"
+
+[deps]
+
+files=["res://.godot/imported/rock_smallB.obj-605ae439a2cf2a88241ad7c850091ace.mesh"]
+
+source_file="res://Idle/assets/models/kenney_nature_kit/Kenney Nature Kit/rock_smallB.obj"
+dest_files=["res://.godot/imported/rock_smallB.obj-605ae439a2cf2a88241ad7c850091ace.mesh", "res://.godot/imported/rock_smallB.obj-605ae439a2cf2a88241ad7c850091ace.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

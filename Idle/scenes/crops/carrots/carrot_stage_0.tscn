@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxjmjl718nfv0"]
+
+[ext_resource type="ArrayMesh" uid="uid://wm6dfsprvd0" path="res://Idle/assets/models/kenney_nature_kit/Kenney Nature Kit/crop_carrot.obj" id="1_fb3tb"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CropCarrot" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.00226524, 0, 0.09997434, 0, 0.1, 0, -0.09997434, 0, -0.00226524, 0.22579849, -0.04090935, 0.27334148)
+mesh = ExtResource("1_fb3tb")
+
+[node name="CropCarrot2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.038047325, 0, 0.09247919, 0, 0.1, 0, -0.09247919, 0, -0.038047325, 0.0034175515, -0.04090935, -0.007666558)
+mesh = ExtResource("1_fb3tb")
+
+[node name="CropCarrot5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.06887976, 0, -0.07249537, 0, 0.1, 0, 0.07249537, 0, 0.06887976, 0.18946785, -0.04090935, -0.28828576)
+mesh = ExtResource("1_fb3tb")
+
+[node name="CropCarrot6" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.019726386, 0, -0.098035045, 0, 0.1, 0, 0.098035045, 0, 0.019726386, -0.324631, -0.04090935, -0.26792797)
+mesh = ExtResource("1_fb3tb")
+
+[node name="CropCarrot3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.020796293, 0, -0.09781367, 0, 0.1, 0, 0.09781367, 0, -0.020796293, -0.12634999, -0.04090935, 0.3067266)
+mesh = ExtResource("1_fb3tb")

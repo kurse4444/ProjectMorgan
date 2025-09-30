@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://bpdp36xkyk84f"]
+
+[ext_resource type="ArrayMesh" uid="uid://dtypgxxp71itt" path="res://Idle/art/Kenney Nature Kit/tent_detailedOpen.obj" id="1_h40w2"]
+[ext_resource type="Script" uid="uid://coo1emxjogpuj" path="res://Idle/TentDetailedOpen.cs" id="2_uoj4x"]
+[ext_resource type="PackedScene" uid="uid://cpnir57h525mw" path="res://Idle/interaction_components/interactable.tscn" id="3_5sgw5"]
+[ext_resource type="AudioStream" uid="uid://da4sivmegfgli" path="res://Idle/sounds/menu interact.wav" id="4_uoj4x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h40w2"]
+size = Vector3(0.90979004, 0.5248413, 0.68066406)
+
+[node name="TentDetailedOpen" type="MeshInstance3D"]
+mesh = ExtResource("1_h40w2")
+script = ExtResource("2_uoj4x")
+
+[node name="Interactable" parent="." instance=ExtResource("3_5sgw5")]
+interact_name = "Open Shop"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004211426, 0.23757935, -0.0031738281)
+shape = SubResource("BoxShape3D_h40w2")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_uoj4x")

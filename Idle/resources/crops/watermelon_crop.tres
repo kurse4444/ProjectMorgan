@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Crop" load_steps=6 format=3 uid="uid://c4maw5hxj17b"]
+
+[ext_resource type="Resource" uid="uid://cmdamqdhvup30" path="res://Idle/resources/items/watermelon.tres" id="1_ib4l4"]
+[ext_resource type="PackedScene" uid="uid://5fhxmc4ydxbc" path="res://Idle/scenes/crops/watermelon/watermelon_stage_1.tscn" id="3_a8kfe"]
+[ext_resource type="PackedScene" uid="uid://jqt1owomuo7e" path="res://Idle/scenes/crops/watermelon/watermelon_stage_2.tscn" id="4_b5cac"]
+[ext_resource type="PackedScene" uid="uid://dbtj1i2ywxeta" path="res://Idle/scenes/crops/watermelon/watermelon_stage_3.tscn" id="5_e7jvy"]
+[ext_resource type="Script" uid="uid://dwmkk13rwc7or" path="res://Idle/scripts/crops/Crop.cs" id="6_p1uw6"]
+
+[resource]
+script = ExtResource("6_p1uw6")
+CropName = "Watermelon Crop"
+HarvestItem = ExtResource("1_ib4l4")
+StageModels = Array[PackedScene]([ExtResource("3_a8kfe"), ExtResource("4_b5cac"), ExtResource("5_e7jvy")])
+GrowthTimeVariance = 0.3
+metadata/_custom_type_script = "uid://dwmkk13rwc7or"

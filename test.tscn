@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfnxjlmmia3uf"]
+
+[ext_resource type="PackedScene" uid="uid://1sf2lnqpr6dv" path="res://Idle/scenes/levels/main.tscn" id="1_6uqi0"]
+[ext_resource type="Script" uid="uid://chv2bbpyx1qvx" path="res://Test.cs" id="1_ppyta"]
+[ext_resource type="PackedScene" uid="uid://d3mm7nytum46a" path="res://Platformer/Scenes/platformer_level.tscn" id="2_ppyta"]
+[ext_resource type="PackedScene" uid="uid://dkp7gfl6unyc4" path="res://Menu/main_menu.tscn" id="3_ykrsh"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_ppyta")
+
+[node name="IdleLevel" parent="." instance=ExtResource("1_6uqi0")]
+visible = false
+
+[node name="PlatformerLevel" parent="." instance=ExtResource("2_ppyta")]
+visible = false
+
+[node name="MainMenu" parent="." instance=ExtResource("3_ykrsh")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -20.801636
+offset_bottom = 3.4911346
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.0695245, 0.9809737)
+size_flags_horizontal = 4

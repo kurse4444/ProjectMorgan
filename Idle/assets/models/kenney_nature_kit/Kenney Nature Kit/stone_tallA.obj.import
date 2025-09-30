@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cwuccweia7fcw"
+path="res://.godot/imported/stone_tallA.obj-b27ffe0f0298e51bc60672502103cc9c.mesh"
+
+[deps]
+
+files=["res://.godot/imported/stone_tallA.obj-b27ffe0f0298e51bc60672502103cc9c.mesh"]
+
+source_file="res://Idle/assets/models/kenney_nature_kit/Kenney Nature Kit/stone_tallA.obj"
+dest_files=["res://.godot/imported/stone_tallA.obj-b27ffe0f0298e51bc60672502103cc9c.mesh", "res://.godot/imported/stone_tallA.obj-b27ffe0f0298e51bc60672502103cc9c.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

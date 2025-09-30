@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cpkfab6xbvhie"
+path="res://.godot/imported/bomb 2.wav-9a7f8805f1985c05521985e01ea5a998.sample"
+
+[deps]
+
+source_file="res://Idle/assets/audio/sfx/bomb 2.wav"
+dest_files=["res://.godot/imported/bomb 2.wav-9a7f8805f1985c05521985e01ea5a998.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

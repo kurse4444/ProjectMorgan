@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cpkdbwuwf43t8"
+path="res://.godot/imported/stump_squareDetailedWide.obj-460b0d3723d7ad7f46743b7cc9358ebf.mesh"
+
+[deps]
+
+files=["res://.godot/imported/stump_squareDetailedWide.obj-460b0d3723d7ad7f46743b7cc9358ebf.mesh"]
+
+source_file="res://Idle/assets/models/kenney_nature_kit/Kenney Nature Kit/stump_squareDetailedWide.obj"
+dest_files=["res://.godot/imported/stump_squareDetailedWide.obj-460b0d3723d7ad7f46743b7cc9358ebf.mesh", "res://.godot/imported/stump_squareDetailedWide.obj-460b0d3723d7ad7f46743b7cc9358ebf.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

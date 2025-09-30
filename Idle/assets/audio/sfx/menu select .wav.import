@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dywb7o3g1qiec"
+path="res://.godot/imported/menu select .wav-f3a841b7ee0eb5be698c75dee111cbe1.sample"
+
+[deps]
+
+source_file="res://Idle/assets/audio/sfx/menu select .wav"
+dest_files=["res://.godot/imported/menu select .wav-f3a841b7ee0eb5be698c75dee111cbe1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

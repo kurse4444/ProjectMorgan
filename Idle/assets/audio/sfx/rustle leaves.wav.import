@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cmqk4358elwil"
+path="res://.godot/imported/rustle leaves.wav-e647c72d7fa6b1fa68f00f0f7db183ee.sample"
+
+[deps]
+
+source_file="res://Idle/assets/audio/sfx/rustle leaves.wav"
+dest_files=["res://.godot/imported/rustle leaves.wav-e647c72d7fa6b1fa68f00f0f7db183ee.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

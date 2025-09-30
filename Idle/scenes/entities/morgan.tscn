@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://brkns70wxh01o"]
+
+[ext_resource type="PackedScene" uid="uid://chrurhht57p3h" path="res://Idle/assets/models/my_custom/Morgan.glb" id="1_cdp2t"]
+[ext_resource type="PackedScene" uid="uid://uswagi2rptqo" path="res://Idle/assets/models/my_custom/Standard Walk.fbx" id="2_sckdm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cdp2t"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Morgan" parent="." instance=ExtResource("1_cdp2t")]
+
+[node name="Standard Walk" parent="Morgan" instance=ExtResource("2_sckdm")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6986656, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_cdp2t")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.9859614)

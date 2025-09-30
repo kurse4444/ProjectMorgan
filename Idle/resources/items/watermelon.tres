@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cmdamqdhvup30"]
+
+[ext_resource type="Texture2D" uid="uid://rtx1b5qhd47k" path="res://Idle/assets/textures/kenney_nature_kit/crop_melon.png" id="1_yhbob"]
+[ext_resource type="Script" uid="uid://cvojing8jebd6" path="res://Idle/scripts/items/Item.cs" id="2_8r8bv"]
+
+[resource]
+script = ExtResource("2_8r8bv")
+Id = "1"
+Name = "watermelon"
+Description = "watermelon"
+Icon = ExtResource("1_yhbob")
+StackSize = 99
+Value = 15
+metadata/_custom_type_script = "uid://cvojing8jebd6"

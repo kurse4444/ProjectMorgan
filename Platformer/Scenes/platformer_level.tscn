@@ -608,14 +608,6 @@ position = Vector2(1482, 121)
 scale = Vector2(1.3838601, 1.3838601)
 milestone_on_enter = "FoundBoots"
 
-[node name="UnlockArea2D2" parent="." instance=ExtResource("15_7girl")]
-position = Vector2(2329, 117)
-milestone_on_enter = "FoundBubble"
-
-[node name="UnlockArea2D3" parent="." instance=ExtResource("15_7girl")]
-position = Vector2(4019, 94)
-milestone_on_enter = "FoundBomb"
-
 [node name="KillZones" type="Node2D" parent="."]
 
 [node name="KillZone" type="Area2D" parent="KillZones"]

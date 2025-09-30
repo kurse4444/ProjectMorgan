@@ -1,0 +1,79 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1r2tj7r3mej1"]
+
+[ext_resource type="PackedScene" uid="uid://djo3j48ifdk7o" path="res://Idle/scenes/objects/planter.tscn" id="1_iijqs"]
+
+[node name="Small Farm" type="Node3D"]
+
+[node name="Planter9" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+
+[node name="Planter10" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
+
+[node name="Planter11" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="Planter12" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+
+[node name="Planter13" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+
+[node name="Planter16" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1)
+
+[node name="Planter17" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="Planter18" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="Planter19" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="Planter20" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
+
+[node name="Planter23" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="Planter24" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="Planter25" parent="." instance=ExtResource("1_iijqs")]
+
+[node name="Planter26" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="Planter27" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="Planter30" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1)
+
+[node name="Planter31" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+
+[node name="Planter32" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Planter33" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="Planter34" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
+
+[node name="Planter37" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+
+[node name="Planter38" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
+
+[node name="Planter39" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="Planter40" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
+
+[node name="Planter41" parent="." instance=ExtResource("1_iijqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)

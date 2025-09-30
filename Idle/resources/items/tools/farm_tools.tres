@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Tool" load_steps=3 format=3 uid="uid://t242qc76kw50"]
+
+[ext_resource type="Script" uid="uid://dohdemp0vai46" path="res://Idle/scripts/items/Tool.cs" id="1_6jpvj"]
+[ext_resource type="Texture2D" uid="uid://d1tmfh1uyjqyq" path="res://Idle/assets/textures/Farm_Icons/farm-tool1.png" id="1_x7w8e"]
+
+[resource]
+script = ExtResource("1_6jpvj")
+Id = "farm_tools"
+Name = "Farm Tools"
+Description = "Speed up various actions"
+Icon = ExtResource("1_x7w8e")
+Value = 100
+metadata/_custom_type_script = "uid://dohdemp0vai46"

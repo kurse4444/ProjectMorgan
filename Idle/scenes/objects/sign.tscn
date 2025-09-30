@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5ltiwsay0151"]
+
+[ext_resource type="Script" uid="uid://cr5l4ymv4uvsi" path="res://Idle/scripts/objects/Sign.cs" id="1_k3qum"]
+[ext_resource type="ArrayMesh" uid="uid://btcuxn67jrk4n" path="res://Idle/assets/models/kenney_nature_kit/Kenney Nature Kit/sign.obj" id="1_xt16b"]
+[ext_resource type="PackedScene" uid="uid://cpnir57h525mw" path="res://Idle/scenes/entities/interactable.tscn" id="3_v6rcs"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_h2yge"]
+points = PackedVector3Array(-0.15, 0.20314486, 0.0175, -0.017501965, 0, -0.0175, -0.15, 0.20314486, 0.052493155, -0.15, 0.38076156, 0.0175, -0.017501965, 0, 0.0175, -0.017501965, 0.4087705, -0.0175, 0.017472595, 0, -0.0175, 0.15, 0.20314486, 0.052493155, -0.120017625, 0.23315445, 0.052500002, -0.15, 0.38076156, 0.052493155, 0.017472595, 0, 0.0175, -0.017501965, 0.4087705, 0.0175, 0.017472595, 0.4087705, -0.0175, 0.15, 0.20314486, 0.0175, 0.15, 0.38076156, 0.052493155, 0.11998826, 0.23315445, 0.052500002, -0.120017625, 0.350752, 0.052500002, 0.017472595, 0.4087705, 0.0175, 0.15, 0.38076156, 0.0175, 0.11998826, 0.350752, 0.052500002)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tr38r"]
+size = Vector3(0.28320313, 0.16320801, 0.033569336)
+
+[node name="Sign" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.022844523, 0.00020968914, 0)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_k3qum")
+
+[node name="Sign" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_xt16b")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_h2yge")
+
+[node name="Interactable" parent="." instance=ExtResource("3_v6rcs")]
+interact_name = "Read Sign"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28640714, 0.009460449)
+shape = SubResource("BoxShape3D_tr38r")

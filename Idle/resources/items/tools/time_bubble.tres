@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Tool" load_steps=3 format=3 uid="uid://v5s4q7shlyqv"]
+
+[ext_resource type="Texture2D" uid="uid://dp7cm5g6to066" path="res://Platformer/Assets/Art/bubble.png" id="1_fj5u4"]
+[ext_resource type="Script" uid="uid://dohdemp0vai46" path="res://Idle/scripts/items/Tool.cs" id="2_4vfci"]
+
+[resource]
+script = ExtResource("2_4vfci")
+Id = "time_bubble"
+Name = "Time Bubble"
+Description = "Speeds up crop growth in sphere"
+Icon = ExtResource("1_fj5u4")
+Value = 100
+metadata/_custom_type_script = "uid://dohdemp0vai46"

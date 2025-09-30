@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://26kly276qjmq"
+path="res://.godot/imported/ground_pathBendBank.obj-88cd7879c4a84e08a9be6742088aa061.mesh"
+
+[deps]
+
+files=["res://.godot/imported/ground_pathBendBank.obj-88cd7879c4a84e08a9be6742088aa061.mesh"]
+
+source_file="res://Idle/assets/models/kenney_nature_kit/Kenney Nature Kit/ground_pathBendBank.obj"
+dest_files=["res://.godot/imported/ground_pathBendBank.obj-88cd7879c4a84e08a9be6742088aa061.mesh", "res://.godot/imported/ground_pathBendBank.obj-88cd7879c4a84e08a9be6742088aa061.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

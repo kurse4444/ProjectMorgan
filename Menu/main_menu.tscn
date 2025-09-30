@@ -1,18 +1,16 @@
 [gd_scene load_steps=2 format=3 uid="uid://dkp7gfl6unyc4"]
 
-[ext_resource type="Script" uid="uid://o6owk81xvorb" path="res://Menu/main_menu.gd" id="1_sla5p"]
+[ext_resource type="Script" uid="uid://dembged6nb3t8" path="res://Menu/MainMenu.cs" id="1_sla5p"]
 
-[node name="MainMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="main_menu" type="CanvasLayer"]
 script = ExtResource("1_sla5p")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
 offset_left = 97.0
 offset_top = 26.0
 offset_right = 220.0
 offset_bottom = 162.0
+metadata/_edit_use_anchors_ = true
 
 [node name="ButtonIdle" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -33,5 +31,3 @@ text = "Quit"
 
 [connection signal="pressed" from="VBoxContainer/ButtonIdle" to="." method="_on_button_idle_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonPF" to="." method="_on_button_pf_pressed"]
-[connection signal="pressed" from="VBoxContainer/ButtonRPG" to="." method="_on_button_rpg_pressed"]
-[connection signal="pressed" from="VBoxContainer/ButtonQuit" to="." method="_on_button_quit_pressed"]

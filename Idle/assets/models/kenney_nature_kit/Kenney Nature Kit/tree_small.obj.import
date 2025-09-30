@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://x70w8h6a24g7"
+path="res://.godot/imported/tree_small.obj-ff26e9280834e625a4a1b646b06c3204.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tree_small.obj-ff26e9280834e625a4a1b646b06c3204.mesh"]
+
+source_file="res://Idle/assets/models/kenney_nature_kit/Kenney Nature Kit/tree_small.obj"
+dest_files=["res://.godot/imported/tree_small.obj-ff26e9280834e625a4a1b646b06c3204.mesh", "res://.godot/imported/tree_small.obj-ff26e9280834e625a4a1b646b06c3204.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

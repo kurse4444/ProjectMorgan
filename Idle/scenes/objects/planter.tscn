@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://djo3j48ifdk7o"]
+
+[ext_resource type="Script" uid="uid://ce7ugcl2m4n3s" path="res://Idle/scripts/objects/Planter.cs" id="1_4n7xk"]
+[ext_resource type="ArrayMesh" uid="uid://df4fwlejk783" path="res://Idle/assets/models/kenney_nature_kit/Kenney Nature Kit/crops_dirtDoubleRow.obj" id="2_lofpx"]
+[ext_resource type="PackedScene" uid="uid://tkk4cr6iqvvr" path="res://Idle/assets/models/my_custom/mouse.glb" id="2_yvq3j"]
+[ext_resource type="AudioStream" uid="uid://um42ovlow23o" path="res://Idle/assets/audio/sfx/plant.wav" id="5_3huqi"]
+[ext_resource type="PackedScene" uid="uid://cpnir57h525mw" path="res://Idle/scenes/entities/interactable.tscn" id="5_nbn44"]
+[ext_resource type="AudioStream" uid="uid://p8utms3vs4o2" path="res://Idle/assets/audio/sfx/plant 2.wav" id="6_3huqi"]
+[ext_resource type="AudioStream" uid="uid://bm4flqe3827ix" path="res://Idle/assets/audio/sfx/sword.wav" id="7_q0bhx"]
+[ext_resource type="AudioStream" uid="uid://cmqk4358elwil" path="res://Idle/assets/audio/sfx/rustle leaves.wav" id="8_vgtxm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1dopj"]
+size = Vector3(1, 0.16674805, 1)
+
+[node name="Planter" type="Node3D"]
+script = ExtResource("1_4n7xk")
+
+[node name="CropsDirtDoubleRow" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_lofpx")
+
+[node name="Interactable" parent="." instance=ExtResource("5_nbn44")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.080200195, 0)
+shape = SubResource("BoxShape3D_1dopj")
+
+[node name="GrowthTimer" type="Timer" parent="."]
+
+[node name="PestTimer" type="Timer" parent="."]
+
+[node name="PlantSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_3huqi")
+
+[node name="HarvestSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_3huqi")
+
+[node name="KickPest" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_q0bhx")
+
+[node name="PestSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_vgtxm")
+
+[node name="Pest" type="Node3D" parent="."]
+visible = false
+
+[node name="Pest" parent="Pest" instance=ExtResource("2_yvq3j")]
+transform = Transform3D(0.59999996, 0, 0, 0, 0.59953576, 0.023597743, 0, -0.023597743, 0.59953576, 0.0031050295, 5.9604645e-08, -0.46980637)
+
+[connection signal="timeout" from="GrowthTimer" to="." method="_on_growth_timer_timeout"]
+[connection signal="timeout" from="PestTimer" to="." method="_on_pest_timer_timeout"]

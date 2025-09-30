@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Seeds" load_steps=4 format=3 uid="uid://j7yjxo7a7ru8"]
+
+[ext_resource type="Script" uid="uid://y8pgkqxxh4l7" path="res://Idle/scripts/items/Seeds.cs" id="1_5h6w3"]
+[ext_resource type="Resource" uid="uid://c4maw5hxj17b" path="res://Idle/resources/crops/watermelon_crop.tres" id="1_y7350"]
+[ext_resource type="Texture2D" uid="uid://dbi76b8ya5bp7" path="res://Idle/assets/textures/Farm_Icons/farm-seeds72.png" id="2_y7350"]
+
+[resource]
+script = ExtResource("1_5h6w3")
+CropToGrow = ExtResource("1_y7350")
+Id = "watermelon_seeds"
+Name = "Melon Seeds"
+Description = "Plants Watermelon"
+Icon = ExtResource("2_y7350")
+StackSize = 99
+Value = 10
+metadata/_custom_type_script = "uid://y8pgkqxxh4l7"

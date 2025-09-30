@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://dp1mc305bvcrv"]
+
+[ext_resource type="Script" uid="uid://bcnukohvj6tt6" path="res://Idle/scripts/core/ItemSlot.cs" id="1_gd0t1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
+bg_color = Color(0, 0, 0, 0.13725491)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.17641911, 0.17641908, 0.17641908, 1)
+border_blend = true
+
+[node name="ItemSlot1" type="Panel"]
+custom_minimum_size = Vector2(15, 15)
+offset_right = 15.0
+offset_bottom = 15.0
+scale = Vector2(0.2, 0.2)
+theme_override_styles/panel = SubResource("StyleBoxFlat_7mycd")
+script = ExtResource("1_gd0t1")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 4.3548374
+offset_bottom = 4.3548374
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.775, 0.775)
+expand_mode = 2
+
+[node name="QuantityLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 3
+horizontal_alignment = 2
