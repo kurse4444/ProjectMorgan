@@ -449,6 +449,7 @@ tile_set = SubResource("TileSet_ik775")
 navigation_visibility_mode = 2
 
 [node name="Player" parent="." instance=ExtResource("2_3d06u")]
+top_level = true
 position = Vector2(101, 161)
 move_speed = 150.0
 default_spawn_path = NodePath("../DefaultSpawn")
@@ -494,6 +495,7 @@ Right: D"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="Hints"]
+texture_filter = 1
 offset_left = 339.0
 offset_top = 85.0
 offset_right = 484.0
@@ -507,6 +509,7 @@ to bounce"
 horizontal_alignment = 1
 
 [node name="Label3" type="Label" parent="Hints"]
+texture_filter = 1
 offset_left = 1450.0
 offset_top = 37.0
 offset_right = 1595.0
@@ -520,6 +523,7 @@ unlocked!"
 horizontal_alignment = 1
 
 [node name="Label4" type="Label" parent="Hints"]
+texture_filter = 1
 offset_left = 2307.0
 offset_top = 50.0
 offset_right = 2452.0
@@ -533,18 +537,20 @@ time bubble"
 horizontal_alignment = 1
 
 [node name="Label5" type="Label" parent="Hints"]
-offset_left = 3943.0
-offset_top = 54.0
-offset_right = 4088.0
-offset_bottom = 87.0
+texture_filter = 1
+offset_left = 3948.0
+offset_top = 58.0
+offset_right = 4093.0
+offset_bottom = 91.0
 theme_override_colors/font_color = Color(0.3656204, 0.58364093, 0.5716184, 0.99215686)
 theme_override_constants/paragraph_spacing = -6
 theme_override_fonts/font = ExtResource("14_u6jb2")
-theme_override_font_sizes/font_size = 6
-text = "Press W to place bombs"
+theme_override_font_sizes/font_size = 5
+text = "Press W to place bombs,"
 horizontal_alignment = 1
 
 [node name="Label6" type="Label" parent="Hints"]
+texture_filter = 1
 offset_left = 3085.0
 offset_top = 57.0
 offset_right = 3230.0
@@ -558,19 +564,21 @@ be bubbled"
 horizontal_alignment = 1
 
 [node name="Label7" type="Label" parent="Hints"]
-offset_left = 4143.0
-offset_top = -25.0
-offset_right = 4257.0
-offset_bottom = 8.0
+texture_filter = 1
+offset_left = 4135.0
+offset_top = 61.0
+offset_right = 4228.0
+offset_bottom = 94.0
 theme_override_colors/font_color = Color(0.3656204, 0.58364093, 0.5716184, 0.99215686)
 theme_override_constants/paragraph_spacing = -6
 theme_override_fonts/font = ExtResource("14_u6jb2")
-theme_override_font_sizes/font_size = 6
-text = "Certain blocks can
-be destroyed"
+theme_override_font_sizes/font_size = 4
+text = "destroy certain
+blocks,"
 horizontal_alignment = 1
 
 [node name="Label8" type="Label" parent="Hints"]
+texture_filter = 1
 offset_left = 1108.0
 offset_top = -6.0
 offset_right = 1200.0
@@ -581,6 +589,18 @@ theme_override_fonts/font = ExtResource("14_u6jb2")
 theme_override_font_sizes/font_size = 6
 text = "R: reset level
 M: main menu"
+horizontal_alignment = 1
+
+[node name="Label9" type="Label" parent="Hints"]
+texture_filter = 1
+offset_left = 4206.0
+offset_top = -33.0
+offset_right = 4299.0
+theme_override_colors/font_color = Color(0.3656204, 0.58364093, 0.5716184, 0.99215686)
+theme_override_constants/paragraph_spacing = -6
+theme_override_fonts/font = ExtResource("14_u6jb2")
+theme_override_font_sizes/font_size = 4
+text = "and boost yourself up"
 horizontal_alignment = 1
 
 [node name="UnlockArea2D" parent="." instance=ExtResource("15_7girl")]
