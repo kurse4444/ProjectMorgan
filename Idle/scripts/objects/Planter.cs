@@ -13,9 +13,9 @@ public partial class Planter : Node3D
 	private Node3D pestModel;
 	private int timeDilation = 1;
 	[Export]
-	private float pestPower = 5; // multiplier for how much damage pests do
+	private float pestPower = 4; // multiplier for how much damage pests do
 	[Export]
-	private float pestAgressiveness = 0.1f; // chance of pest appearing each interval
+	private float pestAgressiveness = 0.08f; // chance of pest appearing each interval
 
 	public override void _Ready()
 	{

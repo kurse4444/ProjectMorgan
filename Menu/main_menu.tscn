@@ -6,28 +6,47 @@
 script = ExtResource("1_sla5p")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = -1
+anchor_bottom = -0.19444445
 offset_left = 97.0
-offset_top = 26.0
+offset_top = 49.0
 offset_right = 220.0
-offset_bottom = 162.0
+offset_bottom = 185.0
+size_flags_horizontal = 4
 metadata/_edit_use_anchors_ = true
 
 [node name="ButtonIdle" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Idle
+theme_override_colors/font_color = Color(0.5934817, 0.34059095, 0.6893296, 1)
+text = "Farming
 "
 
 [node name="ButtonPF" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Platformer"
-
-[node name="ButtonRPG" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "RPG"
+theme_override_colors/font_color = Color(0.94135445, 0.4100076, 0.2907214, 1)
+text = "Platforming"
 
 [node name="ButtonQuit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Quit"
 
+[node name="Label" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.625
+anchor_right = 0.5
+anchor_bottom = 0.625
+offset_left = -61.0
+offset_top = 51.5
+offset_right = 61.0
+offset_bottom = 74.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 11
+text = "Esc for Menu"
+horizontal_alignment = 1
+
 [connection signal="pressed" from="VBoxContainer/ButtonIdle" to="." method="_on_button_idle_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonPF" to="." method="_on_button_pf_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonQuit" to="." method="_on_button_quit_pressed"]

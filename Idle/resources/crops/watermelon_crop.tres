@@ -11,5 +11,6 @@ script = ExtResource("6_p1uw6")
 CropName = "Watermelon Crop"
 HarvestItem = ExtResource("1_ib4l4")
 StageModels = Array[PackedScene]([ExtResource("3_a8kfe"), ExtResource("4_b5cac"), ExtResource("5_e7jvy")])
+TimePerStage = 35.0
 GrowthTimeVariance = 0.3
 metadata/_custom_type_script = "uid://dwmkk13rwc7or"

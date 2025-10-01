@@ -10,5 +10,5 @@ Id = "bomb"
 Name = "Bomb"
 Description = "Bomb"
 Icon = ExtResource("1_a1e6i")
-Value = 200
+Value = 1000
 metadata/_custom_type_script = "uid://cvojing8jebd6"

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://16gr1gyhi76x"]
+
+[ext_resource type="Script" uid="uid://b4m3ker6bc5pp" path="res://VideoCutscene.cs" id="1_0xrt1"]
+[ext_resource type="AudioStream" uid="uid://d0oeshvxgqfrs" path="res://menu theme.wav" id="2_whu6k"]
+
+[node name="VideoCutscene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_0xrt1")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_whu6k")
+autoplay = true

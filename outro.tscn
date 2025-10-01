@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://caf1t2r6uhsyg"]
+
+[ext_resource type="Script" uid="uid://ctd2m4mb3cpkh" path="res://Outro.cs" id="1_njae7"]
+[ext_resource type="AudioStream" uid="uid://bueqr6m3q6n8t" path="res://intro_title theme.wav" id="2_jefku"]
+
+[node name="Outro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_njae7")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_jefku")
+autoplay = true

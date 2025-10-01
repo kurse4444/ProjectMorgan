@@ -96,7 +96,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.328896, 1, -18.706923)
 
 [node name="Sign2" parent="." instance=ExtResource("3_h2yge")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.5, 0, 2.5)
-Text = "Bridge to be built with these logs... Only 50000G"
+Text = "Bridge to be built with these logs... Only 50000G. Or just jump over, whatever you choose."
 
 [node name="BridgeBuilding" type="Node3D" parent="."]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.5, 0, 2.5)

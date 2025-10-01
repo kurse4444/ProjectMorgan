@@ -35,5 +35,5 @@ func _on_body_entered(body: Node) -> void:
 	await get_tree().create_timer(DELAY_AFTER_SEC).timeout
 
 	# End (or change scene)
-	get_tree().change_scene_to_file("res://Menu/main_menu.tscn")
+	get_tree().change_scene_to_file("res://outro.tscn")
 	#get_tree().quit()

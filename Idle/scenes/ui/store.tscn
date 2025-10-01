@@ -71,6 +71,16 @@ item = ExtResource("6_xcufh")
 [node name="PurchaseSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("5_jdgcu")
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1.125
+offset_top = -17.09375
+offset_right = 165.125
+offset_bottom = -0.09375
+theme_override_font_sizes/font_size = 12
+text = "Store"
+horizontal_alignment = 1
+
 [connection signal="SlotClicked" from="MarginContainer/GridContainer/ShopSlot" to="." method="_on_shop_slot_slot_clicked"]
 [connection signal="SlotHover" from="MarginContainer/GridContainer/ShopSlot" to="." method="_on_shop_slot_slot_hover"]
 [connection signal="SlotClicked" from="MarginContainer/GridContainer/ShopSlot2" to="." method="_on_shop_slot_slot_clicked"]

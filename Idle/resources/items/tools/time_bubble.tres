@@ -9,5 +9,5 @@ Id = "time_bubble"
 Name = "Time Bubble"
 Description = "Speeds up crop growth in sphere"
 Icon = ExtResource("1_fj5u4")
-Value = 100
+Value = 30
 metadata/_custom_type_script = "uid://dohdemp0vai46"

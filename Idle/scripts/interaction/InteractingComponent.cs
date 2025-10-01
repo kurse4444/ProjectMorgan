@@ -16,7 +16,7 @@ public partial class InteractingComponent : Node3D
 
 	public override void _Ready()
 	{
-		interact_label = GetNode<Label>("InteractLabel");
+		interact_label = GetNode<Label>("CanvasLayer/InteractLabel");
 		player = GetParent<CharacterBody3d>();
 		interactSpeed = GetNode<Timer>("InteractSpeed");
 

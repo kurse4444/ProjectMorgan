@@ -11,6 +11,6 @@ script = ExtResource("5_gtb7u")
 CropName = "Carrot Crop"
 HarvestItem = ExtResource("1_4ia3e")
 StageModels = Array[PackedScene]([ExtResource("3_5gvyi"), ExtResource("4_36y4l"), ExtResource("5_klusq")])
-TimePerStage = 40.0
+TimePerStage = 25.0
 GrowthTimeVariance = 0.3
 metadata/_custom_type_script = "uid://dwmkk13rwc7or"

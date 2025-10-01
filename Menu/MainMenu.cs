@@ -21,4 +21,9 @@ public partial class MainMenu : CanvasLayer
 	{
 		GetParent().Call("StartPlatformerGame");
 	}
+
+	public void _on_button_quit_pressed()
+	{
+		GetTree().Quit();
+	}
 }
